@@ -33,7 +33,11 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity 
+{
+	private final String IP_ADDRESS_APP_SERVER="127.0.0.1";
+	private final String PORT_APP_SERVER = "8080";
+	private final String PROJECT_NAME_SERVER = "/ActigraphyAppServer/";
 	private final static String STORETEXT = "storetext.txt";
 	final int LENGTHOFARRAY = 15;
 	TextView info;
@@ -199,7 +203,7 @@ public class MainActivity extends Activity {
 	class SendFile extends AsyncTask<String, Void, Void> {
 		protected Void doInBackground(String... urls) {
 			String existingFileName = STORETEXT;
-			String URL = "http://192.168.1.4:8080/RecieveDataFromSleepApp/SaveDataToMongoDB";
+			String URL = "http://"+IP_ADDRESS_APP_SERVER+":"+PORT_APP_SERVER+PROJECT_NAME_SERVER+"/SaveDataToMongoDB";
 
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpClient http = AndroidHttpClient.newInstance("Sleep");
