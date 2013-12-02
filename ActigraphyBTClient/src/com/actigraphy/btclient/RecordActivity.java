@@ -80,6 +80,7 @@ public class RecordActivity extends Activity implements SensorEventListener {
 	long startTime = 0;
 
 	private void initChart() {
+		System.out.println("hi");
 		System.out.println("init chart constructor");
 		mCurrentSeries = new XYSeries("Sleep Pattern");
 		mDataset.addSeries(mCurrentSeries);
