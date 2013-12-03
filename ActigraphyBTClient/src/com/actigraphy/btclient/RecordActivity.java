@@ -65,9 +65,12 @@ public class RecordActivity extends Activity implements SensorEventListener {
 	Button start, stop;
 	double sum = 0.0;
 	List<Double> sumValue = new ArrayList<Double>();
+	List<Double> xAxis = new ArrayList<Double>();
+	List<Double> yAxis = new ArrayList<Double>();
+	List<Double> zAxis = new ArrayList<Double>();
 	TextView timerVal;
 	int time = 0;
-	private float mLastX, mLastY, mLastZ;
+	private double mLastX, mLastY, mLastZ;
 	private boolean mInitialized;
 	private SensorManager mSensorManager;
 	private Sensor mAccelerometer;
@@ -76,12 +79,17 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 	private void addValue() throws IOException {
 		System.out.println("adding data to list");
-		sumValue.add(sum);
-		if(sumValue.size()%10==0)
+	//	sumValue.add(sum);
+		xAxis.add(mLastX);
+		yAxis.add(mLastY);
+		zAxis.add(mLastZ);
+		if(xAxis.size()%10==0)
 		{
 			System.out.println("Sending data to server...");
 			sendData();
-			sumValue.clear();
+			xAxis.clear();
+			yAxis.clear();
+			zAxis.clear();
 		}
 	}
 
@@ -91,11 +99,12 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 		@Override
 		public void run() {
+			
 			long millis = System.currentTimeMillis() - startTime;
 			int seconds = (int) (millis / 1000);
 			int minutes = seconds / 60;
 			seconds = seconds % 60;
-			time = seconds + minutes * 60;
+			//time = seconds + minutes * 60;
 			timerVal.setText(String.format("%d:%02d", minutes, seconds));
 			try {
 				addValue();
@@ -170,7 +179,7 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 	}
 	void sendData(){
-		BluetoothClient bClient = new BluetoothClient(sumValue);
+		BluetoothClient bClient = new BluetoothClient(xAxis, yAxis, zAxis);
 	}
 	@Override
 	public void onSensorChanged(SensorEvent event) {
@@ -193,9 +202,9 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			tvZ.setText("0.0");
 			mInitialized = true;
 		} else {
-			float deltaX = Math.abs(mLastX - x);
-			float deltaY = Math.abs(mLastY - y);
-			float deltaZ = Math.abs(mLastZ - z);
+			double deltaX = Math.abs(mLastX - x);
+			double deltaY = Math.abs(mLastY - y);
+			double deltaZ = Math.abs(mLastZ - z);
 			if (deltaX < NOISE)
 				deltaX = (float) 0.0;
 			if (deltaY < NOISE)

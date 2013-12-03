@@ -29,19 +29,15 @@ import org.apache.xmlbeans.XmlToken;
 
 public class PlotDataUsingjfree {
 	ArrayList<Integer> list1 = new ArrayList<Integer>();
-	ArrayList<Double> list2 = new ArrayList<Double>();
-	
+	ArrayList<Double> listX = new ArrayList<Double>();
+	ArrayList<Double> listY = new ArrayList<Double>();
+	ArrayList<Double> listZ = new ArrayList<Double>();
 	String filename;
-	public PlotDataUsingjfree(ArrayList<Integer> l1, ArrayList<Double> l2, String name) {
-		list1 = l1;
-		list2 = l2;
-		filename = "C:\\SubjectID_"+name.replace(':', '_')+".jpg";
-		 
-		System.out.println("items in list1==" + list1.size()
-				+ " items in list2==" + list2.size());
+	public PlotDataUsingjfree(String name) {
+		filename=name;
 	}
 
-	public void drawGraph() {
+	public void drawGraph(ArrayList<Integer> list1, ArrayList<Double> list2, String axis) {
 		XYSeries series = new XYSeries("Activity vs Time graph");
 		for (int j = 0; j < list2.size(); j++) {
 			series.add((double) list1.get(j), (double) list2.get(j));
@@ -61,7 +57,7 @@ public class PlotDataUsingjfree {
 				false // Configure chart to generate URLs?
 				);
 		try {
-			ChartUtilities.saveChartAsJPEG(new File(filename), chart,
+			ChartUtilities.saveChartAsJPEG(new File( "C:\\SubjectID_"+filename.replace(':', '_')+"_"+axis+".jpg"), chart,
 					500, 300);
 		} catch (IOException e) {
 			System.err.println("Problem occurred creating chart.--"+e.getMessage());

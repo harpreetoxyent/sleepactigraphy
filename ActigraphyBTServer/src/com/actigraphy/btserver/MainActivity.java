@@ -167,14 +167,14 @@ public class MainActivity extends Activity
 
 		public void run() {
 			System.out.println("\n Server thread running..");
-			byte[] buffer = new byte[(6 * LENGTHOFARRAY) + 17 + 1]; // buffer store
+			byte[] buffer = new byte[1024]; // buffer store
 																// for the
 																// stream
 			int bytes; // bytes returned from read()
 			// Keep listening to the InputStream until an exception occurs
 			try {
 				// Read from the InputStream
-				bytes = mmInStream.read(buffer, 0, (6 * LENGTHOFARRAY) + 17 + 1);
+				bytes = mmInStream.read(buffer, 0, 1024);
 				dataReceived = new String(buffer);
 				System.out.println("data received " + dataReceived);
 				sendData();

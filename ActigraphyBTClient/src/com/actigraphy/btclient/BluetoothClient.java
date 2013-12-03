@@ -18,7 +18,7 @@ import android.os.Handler;
 
 public class BluetoothClient {
 	private static final int REQUEST_BLU = 1;
-	private static String BLU_UNIQUE_ID=null;
+	private static String BLU_UNIQUE_ID = null;
 	IntentFilter filter;
 	BroadcastReceiver mReceiver;
 	BluetoothAdapter mBluetoothAdapter;
@@ -32,7 +32,7 @@ public class BluetoothClient {
 	byte[] byteArray;
 	List<Double> list = new ArrayList<Double>();
 
-	public BluetoothClient(List<Double> data) {
+	public void prepareData(List<Double> data) {
 		for (double value : data) {
 			value = value + 0.0001;
 			doubleValue = value;
@@ -42,20 +42,39 @@ public class BluetoothClient {
 			byteArray = (newDouble.replace(",", "")).getBytes();
 			for (int j = 0; j < byteArray.length; j++) {
 				buffer[lengthOfData + j] = byteArray[j];
-			}			 
-			lengthOfData = lengthOfData + byteArray.length; 
-			System.out.println("length of this epoch "+byteArray.length+" &&&total length gets "+lengthOfData);
+			}
+			lengthOfData = lengthOfData + byteArray.length;
+			System.out.println("length of this epoch " + byteArray.length
+					+ " &&&total length gets " + lengthOfData);
 		}
-		byteArray = "_".getBytes();
+		byteArray = ",".getBytes();
 		System.out.println("lengthOfData  " + lengthOfData);
-		
-		//insert a string
+
+		// insert a string
 		for (int j = 0; j < byteArray.length; j++) {
 			buffer[lengthOfData + j] = byteArray[j];
-			
+
 		}
 		lengthOfData = lengthOfData + byteArray.length;
-		
+
+	}
+
+	public BluetoothClient(List<Double> x, List<Double> y, List<Double> z) {
+		list = x;
+		prepareData(x);
+		prepareData(y);
+		prepareData(z);
+		byteArray = "_".getBytes();
+
+		// insert a string
+		for (int j = 0; j < byteArray.length; j++) {
+			buffer[lengthOfData + j] = byteArray[j];
+
+		}
+
+		lengthOfData = lengthOfData + byteArray.length;
+		System.out.println("lengthOfData  " + lengthOfData);
+
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
 			// Device does not support Bluetooth
@@ -63,23 +82,24 @@ public class BluetoothClient {
 			System.out.println("\n Bluetooth NOT supported. Aborting.");
 		} else {
 			BLU_UNIQUE_ID = mBluetoothAdapter.getAddress();
-			
+
 			// append unique id
-			if(BLU_UNIQUE_ID!=null)
-			{
-				System.out.println("BLU_UNIQUE_ID is: "+BLU_UNIQUE_ID);
+			if (BLU_UNIQUE_ID != null) {
+				System.out.println("BLU_UNIQUE_ID is: " + BLU_UNIQUE_ID);
 				byteArray = BLU_UNIQUE_ID.getBytes();
 				for (int j = 0; j < byteArray.length; j++) {
 					buffer[lengthOfData + j] = byteArray[j];
-				}				 
+				}
 				lengthOfData = lengthOfData + byteArray.length;
-				System.out.println("Now the final length of data after appending mac address is "+lengthOfData);
+				System.out
+						.println("Now the final length of data after appending mac address is "
+								+ lengthOfData);
 			}
+			System.out.println("data from client is \n "+new String(buffer));
 			
 			findPairedDevices(mBluetoothAdapter);
 		}
 
-			
 	}
 
 	public void findPairedDevices(BluetoothAdapter mBluetoothAdapter) {
@@ -189,15 +209,17 @@ public class BluetoothClient {
 				+ mmSocket.toString() + " ***** " + mmSocket.getRemoteDevice());
 		ConnectedThread sendData = new ConnectedThread(mmSocket);
 		sendData.start();
-		System.out.println("sending this data: "+new String(buffer));
+		System.out.println("sending this data: " + new String(buffer));
 		sendData.write(buffer);
-		try {
+		//sendData.write(list);
+		/*try {
 			sendData.sleep(3000);
 			System.out.println("waking!!!");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		System.out.println("closing socket");
 		sendData.cancel();
 	}
