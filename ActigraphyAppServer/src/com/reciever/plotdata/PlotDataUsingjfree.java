@@ -27,30 +27,33 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlToken;
 
-public class plotData {
+public class PlotDataUsingjfree {
 	ArrayList<Integer> list1 = new ArrayList<Integer>();
 	ArrayList<Double> list2 = new ArrayList<Double>();
-
-	public plotData(ArrayList<Integer> l1, ArrayList<Double> l2) {
+	
+	String filename;
+	public PlotDataUsingjfree(ArrayList<Integer> l1, ArrayList<Double> l2, String name) {
 		list1 = l1;
 		list2 = l2;
+		filename = "C:\\SubjectID_"+name.replace(':', '_')+".jpg";
+		 
 		System.out.println("items in list1==" + list1.size()
 				+ " items in list2==" + list2.size());
 	}
 
 	public void drawGraph() {
-		XYSeries series = new XYSeries("Sleep XYGraph");
-		for (int j = 0; j < list1.size(); j++) {
-			series.add((double) list2.get(j), (double) list1.get(j));
+		XYSeries series = new XYSeries("Activity vs Time graph");
+		for (int j = 0; j < list2.size(); j++) {
+			series.add((double) list1.get(j), (double) list2.get(j));
 		}
 		// Add the series to your data set
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series);
 
 		// Generate the graph
-		JFreeChart chart = ChartFactory.createXYLineChart("XY Chart", // Title
-				"Time", // x-axis Label
-				"value", // y-axis Label
+		JFreeChart chart = ChartFactory.createXYLineChart("Actigraphy", // Title
+				"Epoch -->", // x-axis Label
+				"Acceleometer Reading -->", // y-axis Label
 				dataset, // Dataset
 				PlotOrientation.VERTICAL, // Plot Orientation
 				true, // Show Legend
@@ -58,10 +61,10 @@ public class plotData {
 				false // Configure chart to generate URLs?
 				);
 		try {
-			ChartUtilities.saveChartAsJPEG(new File("C:\\chart.jpg"), chart,
+			ChartUtilities.saveChartAsJPEG(new File(filename), chart,
 					500, 300);
 		} catch (IOException e) {
-			System.err.println("Problem occurred creating chart.");
+			System.err.println("Problem occurred creating chart.--"+e.getMessage());
 		}
 	}
 }
