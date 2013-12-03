@@ -46,8 +46,16 @@ public class BluetoothClient {
 			lengthOfData = lengthOfData + byteArray.length; 
 			System.out.println("length of this epoch "+byteArray.length+" &&&total length gets "+lengthOfData);
 		}
-		System.out.println("lengthOfData final " + lengthOfData);
-
+		byteArray = "_".getBytes();
+		System.out.println("lengthOfData  " + lengthOfData);
+		
+		//insert a string
+		for (int j = 0; j < byteArray.length; j++) {
+			buffer[lengthOfData + j] = byteArray[j];
+			
+		}
+		lengthOfData = lengthOfData + byteArray.length;
+		
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
 			// Device does not support Bluetooth
@@ -55,9 +63,8 @@ public class BluetoothClient {
 			System.out.println("\n Bluetooth NOT supported. Aborting.");
 		} else {
 			BLU_UNIQUE_ID = mBluetoothAdapter.getAddress();
-			findPairedDevices(mBluetoothAdapter);
-		}
-
+			
+			// append unique id
 			if(BLU_UNIQUE_ID!=null)
 			{
 				System.out.println("BLU_UNIQUE_ID is: "+BLU_UNIQUE_ID);
@@ -68,6 +75,11 @@ public class BluetoothClient {
 				lengthOfData = lengthOfData + byteArray.length;
 				System.out.println("Now the final length of data after appending mac address is "+lengthOfData);
 			}
+			
+			findPairedDevices(mBluetoothAdapter);
+		}
+
+			
 	}
 
 	public void findPairedDevices(BluetoothAdapter mBluetoothAdapter) {
@@ -177,6 +189,7 @@ public class BluetoothClient {
 				+ mmSocket.toString() + " ***** " + mmSocket.getRemoteDevice());
 		ConnectedThread sendData = new ConnectedThread(mmSocket);
 		sendData.start();
+		System.out.println("sending this data: "+new String(buffer));
 		sendData.write(buffer);
 		try {
 			sendData.sleep(3000);
