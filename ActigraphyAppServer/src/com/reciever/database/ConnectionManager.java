@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,20 +76,18 @@ public class ConnectionManager {
 		subjectID = data.substring(index+1, index+1+17);
 		data = data.substring(0, index);
 		
-
+		 // Instantiate a Date object
+	       Date date = new Date();
+	        
 		System.out.println("length of data is " + data.length());
 		System.out.println("subjectID is" + subjectID);
 	/*	System.out.println("data is" + data);*/
 		document.put("subjectID", subjectID);
+		document.put("time", date);
 		document.put("epoch duration", "30 sec");
 		BasicDBObject epochData = new BasicDBObject();
 		String indValues;
-		/*int start = -1;
-		for (int i = 0; i < 10; i++) {
-			indValues = data.substring(start+1, start + 6);
-			start += 6;
-			epochData.put("" + i , indValues);
-		}*/
+		
 		int st = 0, end =0;
 		for (int i = 0; i < 10; i++) {
 			st = data.indexOf(".", end);
