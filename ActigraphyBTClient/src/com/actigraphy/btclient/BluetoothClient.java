@@ -27,6 +27,7 @@ public class BluetoothClient {
 	int lengthOfData = 0;
 	double doubleValue;
 	DecimalFormat df;
+	String totalTime;
 	String newDouble;
 	byte[] byteArray;
 	List<Double> list = new ArrayList<Double>();
@@ -38,15 +39,14 @@ public class BluetoothClient {
 			df = new DecimalFormat("#.####");
 			newDouble = df.format(doubleValue);
 			System.out.println("newDouble" + newDouble);
-
 			byteArray = (newDouble.replace(",", "")).getBytes();
 			for (int j = 0; j < byteArray.length; j++) {
 				buffer[lengthOfData + j] = byteArray[j];
-			}
-			 
+			}			 
 			lengthOfData = lengthOfData + byteArray.length; 
+			System.out.println("length of this epoch "+byteArray.length+" &&&total length gets "+lengthOfData);
 		}
-		System.out.println("lengthOfData" + lengthOfData);
+		System.out.println("lengthOfData final " + lengthOfData);
 
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {

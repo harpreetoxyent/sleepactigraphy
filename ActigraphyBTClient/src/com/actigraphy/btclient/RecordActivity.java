@@ -62,16 +62,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RecordActivity extends Activity implements SensorEventListener {
-	private final static String STORETEXT = "storetext.txt";
 	Button start, stop;
 	double sum = 0.0;
 	List<Double> sumValue = new ArrayList<Double>();
-	private GraphicalView mChart;
-	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
-	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-	private XYSeries mCurrentSeries;
-	private XYSeriesRenderer mCurrentRenderer;
 	TextView timerVal;
+	int time = 0;
 	private float mLastX, mLastY, mLastZ;
 	private boolean mInitialized;
 	private SensorManager mSensorManager;
@@ -79,40 +74,14 @@ public class RecordActivity extends Activity implements SensorEventListener {
 	private final float NOISE = (float) 2.0;
 	long startTime = 0;
 
-	private void initChart() {
-		System.out.println("init chart constructor");
-		mCurrentSeries = new XYSeries("Sleep Pattern");
-		mDataset.addSeries(mCurrentSeries);
-		mCurrentRenderer = new XYSeriesRenderer();
-		mRenderer.addSeriesRenderer(mCurrentRenderer);
-	}
-
-	String dataCollected = null;
-
-	private void addSampleData(List<Double> list) throws IOException {
-		System.out.println("add sample data");
-		for (int i = 0; i < list.size(); i++)
-			mCurrentSeries.add(i, list.get(i));
-
-		if (list.size() % 10 == 0) {
-			System.out.println("sending data");
-			BluetoothClient bClient = new BluetoothClient(list);
-		}
-	}
-
-	private void drawGraph() throws IOException {
-		System.out.println("drawgraph");
+	private void addValue() throws IOException {
+		System.out.println("adding data to list");
 		sumValue.add(sum);
-		LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
-		if (mChart == null) {
-			initChart();
-			addSampleData(sumValue);
-			mChart = ChartFactory.getCubeLineChartView(this, mDataset,
-					mRenderer, 0.3f);
-			layout.addView(mChart);
-		} else {
-			addSampleData(sumValue);
-			mChart.repaint();
+		if(sumValue.size()%10==0)
+		{
+			System.out.println("Sending data to server...");
+			sendData();
+			sumValue.clear();
 		}
 	}
 
@@ -126,10 +95,10 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			int seconds = (int) (millis / 1000);
 			int minutes = seconds / 60;
 			seconds = seconds % 60;
-
+			time = seconds + minutes * 60;
 			timerVal.setText(String.format("%d:%02d", minutes, seconds));
 			try {
-				drawGraph();
+				addValue();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -148,47 +117,29 @@ public class RecordActivity extends Activity implements SensorEventListener {
 		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		start = (Button) findViewById(R.id.start);
 		stop = (Button) findViewById(R.id.stop);
-		start.setOnClickListener(new OnClickListener(){
+		start.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				startProgram();
 			}
-			
+
 		});
-		stop.setOnClickListener(new OnClickListener(){
+		stop.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-			//	getBaseContext().stopService(RecordActivity.class);
-				//this.stopService(new Intent(this, RecordActivity.class));
 				finish();
 				System.exit(0);
-				//return;
+				return;
 			}
-			
+
 		});
 	}
 
-	/*private OnClickListener onClickListener = new OnClickListener() {
-	    @Override
-	    public void onClick(final View v) {
-	             switch(v.getId()){
-	                 case R.id.start:
-	                	 startProgram();
-	                 case R.id.stop:
-	                	// finish();
-	                      //DO something
-	                 break;
-	              }
-
-	    }
-	};
-*/	
-	public void startProgram()
-	{
+	public void startProgram() {
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -197,6 +148,7 @@ public class RecordActivity extends Activity implements SensorEventListener {
 		startTime = System.currentTimeMillis();
 		timerHandler.postDelayed(timerRunnable, 0);
 	}
+
 	protected void onResume() {
 
 		super.onResume();
@@ -217,7 +169,9 @@ public class RecordActivity extends Activity implements SensorEventListener {
 		// TODO Auto-generated method stub
 
 	}
-
+	void sendData(){
+		BluetoothClient bClient = new BluetoothClient(sumValue);
+	}
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
@@ -256,7 +210,11 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			tvZ.setText(Float.toString(y));
 			sum = Math.abs(x) + Math.abs(y) + Math.abs(z);
 			// sum = Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaZ);
+		
+				
 		}
+		
+		
 	}
 
 }

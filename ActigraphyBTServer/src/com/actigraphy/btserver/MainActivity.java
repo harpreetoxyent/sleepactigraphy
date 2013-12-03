@@ -33,8 +33,12 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
-	private final static String STORETEXT = "storetext.txt";
+public class MainActivity extends Activity 
+{
+	private final String IP_ADDRESS_APP_SERVER="192.168.1.4";
+	private final String PORT_APP_SERVER = "8085";
+	//private final String PROJECT_NAME_SERVER = "/ActigraphyAppServer/";
+	private final String PROJECT_NAME_SERVER = "/RecieveDataFromSleepApp/";
 	final int LENGTHOFARRAY = 15;
 	TextView info;
 	BluetoothAdapter mBluetoothAdapter;
@@ -101,7 +105,8 @@ public class MainActivity extends Activity {
 			BluetoothSocket socket = null;
 			// Keep listening until exception occurs or a socket is returned
 			System.out.println("\nlistening: ");
-			while (true) {
+			while (true) 
+			{
 				try {
 					socket = mmServerSocket.accept();
 				} catch (IOException e) {
@@ -119,7 +124,7 @@ public class MainActivity extends Activity {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					break;
+					//break;
 				}
 			}
 		}
@@ -131,7 +136,7 @@ public class MainActivity extends Activity {
 		System.out.println("\ninside manage connection..");
 		ConnectedThread ct = new ConnectedThread(socket);
 		ct.start();
-		ct.cancel();
+		//ct.cancel();
 	}
 
 	private class ConnectedThread extends Thread {
@@ -198,8 +203,8 @@ public class MainActivity extends Activity {
 
 	class SendFile extends AsyncTask<String, Void, Void> {
 		protected Void doInBackground(String... urls) {
-			String existingFileName = STORETEXT;
-			String URL = "http://192.168.1.4:8080/RecieveDataFromSleepApp/SaveDataToMongoDB";
+			
+			String URL = "http://"+IP_ADDRESS_APP_SERVER+":"+PORT_APP_SERVER+PROJECT_NAME_SERVER+"/SaveDataToMongoDB";
 
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpClient http = AndroidHttpClient.newInstance("Sleep");
