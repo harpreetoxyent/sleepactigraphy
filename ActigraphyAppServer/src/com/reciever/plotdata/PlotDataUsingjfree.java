@@ -27,6 +27,8 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlToken;
 
+import com.reciever.constants.ActigraphyServerConstants;
+
 public class PlotDataUsingjfree {
 	ArrayList<Integer> list1 = new ArrayList<Integer>();
 	ArrayList<Double> listX = new ArrayList<Double>();
@@ -38,18 +40,18 @@ public class PlotDataUsingjfree {
 	}
 
 	public void drawGraph(ArrayList<Integer> list1, ArrayList<Double> list2, String axis) {
-		XYSeries series = new XYSeries("Activity vs Time graph");
-		for (int j = 0; j < list2.size(); j++) {
+		XYSeries series = new XYSeries(ActigraphyServerConstants.Plot_Title_Graph);
+		for (int j = 0; j < list2.size(); j++) 
+		{
 			series.add((double) list1.get(j), (double) list2.get(j));
 		}
 		// Add the series to your data set
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series);
-
 		// Generate the graph
 		JFreeChart chart = ChartFactory.createXYLineChart("Actigraphy", // Title
-				"Epoch -->", // x-axis Label
-				"Acceleometer Reading -->", // y-axis Label
+				ActigraphyServerConstants.Plot_X_AXIS_LABEL, // x-axis Label
+				ActigraphyServerConstants.Plot_Y_AXIS_LABEL, // y-axis Label
 				dataset, // Dataset
 				PlotOrientation.VERTICAL, // Plot Orientation
 				true, // Show Legend
@@ -57,7 +59,7 @@ public class PlotDataUsingjfree {
 				false // Configure chart to generate URLs?
 				);
 		try {
-			ChartUtilities.saveChartAsJPEG(new File( "C:\\SubjectID_"+filename.replace(':', '_')+"_"+axis+".jpg"), chart,
+			ChartUtilities.saveChartAsJPEG(new File( ActigraphyServerConstants.Plot_Location_Save+filename.replace(':', '_')+"_"+axis+".jpg"), chart,
 					500, 300);
 		} catch (IOException e) {
 			System.err.println("Problem occurred creating chart.--"+e.getMessage());

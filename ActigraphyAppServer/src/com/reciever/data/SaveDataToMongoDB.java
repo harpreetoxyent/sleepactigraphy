@@ -1,10 +1,6 @@
 package com.reciever.data;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.reciever.database.ConnectionManager;
-
+import com.reciever.constants.ActigraphyServerConstants;
 /**
  * Servlet implementation class SaveDataToMongoDB
  */
@@ -45,8 +41,11 @@ public class SaveDataToMongoDB extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Servlet Init Method");
 		cn = new ConnectionManager();
-		db = cn.getDatabaseAccess("localhost", 27017, "oxyent", "jasola",
-				"admin");
+		db = cn.getDatabaseAccess(ActigraphyServerConstants.Mongo_Server_Address, 
+				ActigraphyServerConstants.Mongo_Server_Port, 
+				ActigraphyServerConstants.Mongo_UserName, 
+				ActigraphyServerConstants.Mongo_Password,
+				ActigraphyServerConstants.Mongo_Database_Name);
 		System.out.println("Servlet Init Method ended db=" + db);
 	}
 
@@ -79,7 +78,7 @@ public class SaveDataToMongoDB extends HttpServlet {
 			while ((line = br.readLine()) != null) {
 				try {
 
-					DBCollection collection = db.getCollection("Actigraphy");
+					DBCollection collection = db.getCollection(ActigraphyServerConstants.Mongo_Collection_Name);
 					if (collection == null) {
 						System.out.println("Error!");
 					} else {

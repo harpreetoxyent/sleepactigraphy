@@ -35,10 +35,10 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity 
 {
-	private final String IP_ADDRESS_APP_SERVER="192.168.1.4";
-	private final String PORT_APP_SERVER = "8085";
-	//private final String PROJECT_NAME_SERVER = "/ActigraphyAppServer/";
-	private final String PROJECT_NAME_SERVER = "/RecieveDataFromSleepApp/";
+	private final String IP_ADDRESS_APP_SERVER="192.168.1.195";
+	private final String PORT_APP_SERVER = "8080";
+	private final String PROJECT_NAME_SERVER = "/ActigraphyAppServer/";
+	//private final String PROJECT_NAME_SERVER = "/RecieveDataFromSleepApp/";
 	final int LENGTHOFARRAY = 15;
 	TextView info;
 	BluetoothAdapter mBluetoothAdapter;

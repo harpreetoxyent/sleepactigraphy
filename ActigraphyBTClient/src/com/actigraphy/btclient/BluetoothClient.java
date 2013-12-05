@@ -17,6 +17,7 @@ import android.content.IntentFilter;
 import android.os.Handler;
 
 public class BluetoothClient {
+	private final String deviceName = "Harpreet Xebia Note3";
 	private static final int REQUEST_BLU = 1;
 	private static String BLU_UNIQUE_ID = null;
 	IntentFilter filter;
@@ -107,7 +108,6 @@ public class BluetoothClient {
 		if (mBluetoothAdapter.isEnabled()) {
 			System.out.println("\nBluetooth is enabled.");
 		}
-		final String deviceName = "Xperia Z";
 		// boolean found = mBluetoothAdapter.startDiscovery();
 		Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
 		if (devices != null) {
