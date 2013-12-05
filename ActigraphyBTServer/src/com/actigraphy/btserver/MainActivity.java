@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.actigraphy.constants.BTServerConstants;
 import com.example.bluetoothserver.R;
 
 //import com.example.sleep.RecordActivity.SendFile;
@@ -35,10 +36,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity 
 {
-	private final String IP_ADDRESS_APP_SERVER="192.168.1.195";
-	private final String PORT_APP_SERVER = "8080";
-	private final String PROJECT_NAME_SERVER = "/ActigraphyAppServer/";
-	//private final String PROJECT_NAME_SERVER = "/RecieveDataFromSleepApp/";
 	final int LENGTHOFARRAY = 15;
 	TextView info;
 	BluetoothAdapter mBluetoothAdapter;
@@ -204,7 +201,9 @@ public class MainActivity extends Activity
 	class SendFile extends AsyncTask<String, Void, Void> {
 		protected Void doInBackground(String... urls) {
 			
-			String URL = "http://"+IP_ADDRESS_APP_SERVER+":"+PORT_APP_SERVER+PROJECT_NAME_SERVER+"/SaveDataToMongoDB";
+			String URL = "http://"+BTServerConstants.IP_ADDRESS_APP_SERVER+":"+
+					BTServerConstants.PORT_APP_SERVER+
+					BTServerConstants.PROJECT_NAME_SERVER+"/SaveDataToMongoDB";
 
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpClient http = AndroidHttpClient.newInstance("Sleep");

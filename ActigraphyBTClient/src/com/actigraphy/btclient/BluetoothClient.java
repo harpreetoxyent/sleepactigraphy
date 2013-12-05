@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import com.actigraphy.constants.BTClientConstants;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -17,8 +20,6 @@ import android.content.IntentFilter;
 import android.os.Handler;
 
 public class BluetoothClient {
-	private final String deviceName = "Harpreet Xebia Note3";
-	private static final int REQUEST_BLU = 1;
 	private static String BLU_UNIQUE_ID = null;
 	IntentFilter filter;
 	BroadcastReceiver mReceiver;
@@ -115,7 +116,7 @@ public class BluetoothClient {
 					+ devices.size());
 			for (BluetoothDevice device : devices) {
 				System.out.println("\n Found: " + device.getName());
-				if (deviceName.equals(device.getName())) {
+				if (device.getName().equals(BTClientConstants.BT_Server_Name)) {
 					System.out.println("\n Found Target device "
 							+ device.getName() + " --device.getAddress()="
 							+ device.getAddress());
