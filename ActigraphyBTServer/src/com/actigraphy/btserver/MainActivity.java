@@ -16,7 +16,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.actigraphy.constants.BTServerConstants;
 import com.example.bluetoothserver.R;
+// import statements for Menu items
 
+
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 //import com.example.sleep.RecordActivity.SendFile;
 
 import android.net.http.AndroidHttpClient;
@@ -239,10 +245,45 @@ public class MainActivity extends Activity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
+	
+	/**
+     * Event Handling for Individual menu item selected
+     * Identify single menu item by it's id
+     * */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	switch (item.getItemId())
+        {
+        case R.id.menu_About:
+            // Single menu item is selected do something
+            // Ex: launching new activity/screen or show alert message
+            Toast.makeText(MainActivity.this, "About is Selected", Toast.LENGTH_SHORT).show();
+            return true;
+        
+        case R.id.menu_Settings:
+            // Single menu item is selected do something
+            // Ex: launching new activity/screen or show alert message
+            Toast.makeText(MainActivity.this, "Settings is Selected", Toast.LENGTH_SHORT).show();
+            return true;
+         
+        case R.id.menu_Exit:
+            // Single menu item is selected do something
+            // Ex: launching new activity/screen or show alert message
+            Toast.makeText(MainActivity.this, "Exit is Selected", Toast.LENGTH_SHORT).show();
+            return true;
+            
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }    
+	
+	
 
 }
