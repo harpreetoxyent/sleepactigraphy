@@ -3,15 +3,15 @@
      
      <item android:id="@+id/menu_About"
           android:icon="@drawable/icon_about"
-          android:title="About" />
+          android:title="@string/About" />
  
  	<item android:id="@+id/menu_Settings"
           android:icon="@drawable/icon_settings"
-          android:title="Settings" />
+          android:title="@string/Settings" />
  
  	<item android:id="@+id/menu_Exit"
           android:icon="@drawable/icon_exit"
-          android:title="Exit" />   
+          android:title="@string/Exit" />   
       
       
   </menu>
