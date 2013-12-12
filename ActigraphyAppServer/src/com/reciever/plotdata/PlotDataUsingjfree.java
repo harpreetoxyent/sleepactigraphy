@@ -49,7 +49,7 @@ public class PlotDataUsingjfree {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series);
 		// Generate the graph
-		JFreeChart chart = ChartFactory.createXYLineChart("Actigraphy", // Title
+		JFreeChart chart = ChartFactory.createXYLineChart("raw_"+axis.toLowerCase().charAt(0), // Title
 				ActigraphyServerConstants.Plot_X_AXIS_LABEL, // x-axis Label
 				ActigraphyServerConstants.Plot_Y_AXIS_LABEL, // y-axis Label
 				dataset, // Dataset
@@ -58,8 +58,17 @@ public class PlotDataUsingjfree {
 				true, // Use tooltips
 				false // Configure chart to generate URLs?
 				);
+		System.out.println("axis is ---- "+axis);
+		String name =  ActigraphyServerConstants.Plot_Location_Save+filename.replace(':', '_');
+		String last = "_"+axis+".jpg";
+		System.out.println("last is "+last);
+		name.concat(last);
+		System.out.println("filename is ---- "+name);
+		
+		
+		
 		try {
-			ChartUtilities.saveChartAsJPEG(new File( ActigraphyServerConstants.Plot_Location_Save+filename.replace(':', '_')+"_"+axis+".jpg"), chart,
+			ChartUtilities.saveChartAsJPEG(new File("C:\\"+axis+".jpg"), chart,
 					500, 300);
 		} catch (IOException e) {
 			System.err.println("Problem occurred creating chart.--"+e.getMessage());

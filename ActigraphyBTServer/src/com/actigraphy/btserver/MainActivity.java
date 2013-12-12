@@ -179,6 +179,9 @@ public class MainActivity extends Activity
 				// Read from the InputStream
 				bytes = mmInStream.read(buffer, 0, 1024);
 				dataReceived = new String(buffer);
+				if(dataReceived.charAt(0)=='_')
+					System.out.println("client pressed stop ^^^^^^^^^^^^");
+				
 				System.out.println("data received " + dataReceived);
 				sendData();
 			} catch (IOException e) {

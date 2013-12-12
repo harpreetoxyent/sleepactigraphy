@@ -63,9 +63,16 @@ public class BluetoothClient {
 
 	public BluetoothClient(List<Double> x, List<Double> y, List<Double> z) {
 		list = x;
-		prepareData(x);
-		prepareData(y);
-		prepareData(z);
+		if(x.size()!=0)
+		{
+			prepareData(x);
+			prepareData(y);
+			prepareData(z);	
+		}
+		else
+		{
+			System.out.println("received stop as list size is zero..................");
+		}
 		byteArray = "_".getBytes();
 
 		// insert a string

@@ -13,6 +13,6 @@ public class ActigraphyServerConstants {
 	public static final String Plot_X_AXIS_LABEL = "Epoch -->";
 	public static final String Plot_Y_AXIS_LABEL = "Acceleometer Reading -->";
 	
-	public static final String Plot_Location_Save = "/SubjectID_";
+	public static final String Plot_Location_Save = "C:\\";
 
 }

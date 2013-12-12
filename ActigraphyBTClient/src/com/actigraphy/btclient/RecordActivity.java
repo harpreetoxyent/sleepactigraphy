@@ -79,12 +79,11 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 	private void addValue() throws IOException {
 		System.out.println("adding data to list");
-	//	sumValue.add(sum);
+		// sumValue.add(sum);
 		xAxis.add(mLastX);
 		yAxis.add(mLastY);
 		zAxis.add(mLastZ);
-		if(xAxis.size()%10==0)
-		{
+		if (xAxis.size() % 10 == 0) {
 			System.out.println("Sending data to server...");
 			sendData();
 			xAxis.clear();
@@ -99,12 +98,12 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 		@Override
 		public void run() {
-			
+
 			long millis = System.currentTimeMillis() - startTime;
 			int seconds = (int) (millis / 1000);
 			int minutes = seconds / 60;
 			seconds = seconds % 60;
-			//time = seconds + minutes * 60;
+			// time = seconds + minutes * 60;
 			timerVal.setText(String.format("%d:%02d", minutes, seconds));
 			try {
 				addValue();
@@ -140,12 +139,22 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				finish();
-				System.exit(0);
+				System.out.println("stop pressed");
+				stopProgram();
+				//finish();
+				//System.exit(0);
 				return;
 			}
 
 		});
+	}
+
+	public void stopProgram() {
+		xAxis.clear();
+		yAxis.clear();
+		zAxis.clear();
+		BluetoothClient stop = new BluetoothClient(xAxis, yAxis, zAxis);
+		System.out.println("sending stop trigger to server");
 	}
 
 	public void startProgram() {
@@ -178,9 +187,11 @@ public class RecordActivity extends Activity implements SensorEventListener {
 		// TODO Auto-generated method stub
 
 	}
-	void sendData(){
+
+	void sendData() {
 		BluetoothClient bClient = new BluetoothClient(xAxis, yAxis, zAxis);
 	}
+
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
@@ -219,11 +230,9 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			tvZ.setText(Float.toString(y));
 			sum = Math.abs(x) + Math.abs(y) + Math.abs(z);
 			// sum = Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaZ);
-		
-				
+
 		}
-		
-		
+
 	}
 
 }

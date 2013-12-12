@@ -76,6 +76,8 @@ public class SaveDataToMongoDB extends HttpServlet {
 
 			String line;
 			while ((line = br.readLine()) != null) {
+				if(line.charAt(0)=='_')
+					System.out.println("at server... client pressed stop");
 				try {
 
 					DBCollection collection = db.getCollection(ActigraphyServerConstants.Mongo_Collection_Name);
