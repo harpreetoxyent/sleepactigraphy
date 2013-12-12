@@ -208,7 +208,6 @@ System.out.println("collection is "+collection+" subjectID is "+subjectID);
 			data = cursor.next().toString();
 			System.out.println("from mongo db data is " + data);
 			addDataToListFromJSON(count, data);
-			
 			/*for (int i = 0; i < 10; i++) {
 				System.out.println(list1.get(count*10+i)+" "+listX.get(count*10+i)+" "+listY.get(count*10+i)+" "+listZ.get(count*10+i));
 			}*/
@@ -223,6 +222,7 @@ System.out.println("collection is "+collection+" subjectID is "+subjectID);
 			pd.drawGraph(list1, listY, "Y_AXIS");
 			pd.drawGraph(list1, listZ, "Z_AXIS");
 			insertAggregatedDataInMongoDB(collection, subjectID, count);
+			removeDuplicatesFromMongoDB(collection, subjectID);
 		}
 	
 	}
@@ -232,6 +232,7 @@ System.out.println("collection is "+collection+" subjectID is "+subjectID);
 		BasicDBObject document = new BasicDBObject();
 		// Instantiate a Date object
 		Date date = new Date();
+		document.put("Aggregate", "true");
 		document.put("subjectID", subjectID);
 		document.put("time", date);
 		document.put("epoch duration", "30 sec");
@@ -244,18 +245,29 @@ System.out.println("collection is "+collection+" subjectID is "+subjectID);
 		document.put("X-Axis", epochData);
 		epochData.clear();
 		System.out.println("in aggregae data--- size of list--Y: "+listY.size() );
-		for (int i = 0; i < listY.size(); i++) {
+		for (int i = 0; i < count*10; i++) {
 			epochData.put("" + i, listY.get(i));
 		}
 		document.put("Y-Axis", epochData);
 		epochData.clear();
 		System.out.println("in aggregae data--- size of list--Z: "+listZ.size() );
-		for (int i = 0; i < listZ.size(); i++) {
+		for (int i = 0; i < count*10; i++) {
 			epochData.put("" + i, listZ.get(i));
 		}
 		document.put("Z-Axis", epochData);
 		//epochData.clear();
 		collection.insert(document);
+	
+	}
+	
+	public void removeDuplicatesFromMongoDB(DBCollection collection, String subjectID){
+		BasicDBObject findData = new BasicDBObject();
+		findData.put("Aggregate",  new BasicDBObject("$ne", "true"));
+		DBCursor cursor = collection.find(findData);
+		System.out.println("cursor size "+cursor.size());
+		while (cursor.hasNext()) {
+			collection.remove(cursor.next());
+		}
 	
 	}
 }
