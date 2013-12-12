@@ -1,0 +1,149 @@
+
+.button {
+    display: block;
+    margin: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;	
+    -webkit-box-shadow:0 15px 20px rgba(0, 0, 0, .35);
+    -moz-box-shadow:0 15px 20px rgba(0, 0, 0, .35);
+    box-shadow:0 15px 20px rgba(0, 0, 0, .35);
+    font-size: 15px;
+    color: #fff;
+	width:160px;
+	text-align:center;
+	font-weight:bold;
+}
+
+.button span {
+    display: block;
+    padding: 15px 30px;
+background:#0b61a4;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    font-family: 'Pacifico', Arial, sans-serif;
+    line-height: 1;
+	width:100px;
+	font-size:17px;
+	text-align:center;
+}
+
+.button:hover span {
+    background-color:#3f92d2;
+	background-position: 0 0;
+	-webkit-background-size: 80% 100%;
+	-moz-background-size: 80% 100%;
+	background-size: 80% 100%;	
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .9), 0 0 10px rgba(255, 255, 255, .8);
+}
+
+.button:active, .button:focus {
+	background-position: 0 0;
+	-webkit-background-size: 80% 100%;
+	-moz-background-size: 80% 100%;
+	background-size: 80% 100%;
+}
+
+.button:active span {
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+}
+
+
+#child
+{
+    display: none;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+color:#ff4900;
+		text-align:center;
+	padding-bottom:5px;
+
+}
+
+
+
+#accordion div {
+	display: none;
+}
+
+#accordion a{
+text-decoration:none;
+-webkit-text-decoration:none;
+}
+
+
+.button1{
+font:12px;
+text-decoration:none !important;
+white-space:nowrap;
+display:inline-block;
+vertical-align:baseline;
+position:relative;
+cursor:pointer;
+padding:0px 20px;
+background-repeat:no-repeat;
+background-position:bottom left;
+width:100px;
+}
+.button1:hover{
+background-position:top left;
+background-position:top left, bottom right, 0 0, 0 0;
+}
+.button1:active{
+bottom:-1px;
+}
+/* The three buttons sizes */
+.button1.big { font-size:18px;}
+.button1.medium { font-size:18px;}
+.button1.small { font-size:18px;}
+/* BlueButton */
+.blue.button1{
+color:#ff4900;!important;
+}
+
+/* Green Button */
+.green.button1{
+color:#345903 !important;
+border:1px solid #96a37b !important;
+background-color: #79be1e;
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -moz-radial-gradient(center bottom, circle, rgba(162,211,30,1) 0,rgba(162,211,30,0) 100px),-moz-linear-gradient(#82cc27, #74b317);
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(162,211,30,1)), to(rgba(162,211,30,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#82cc27), to(#74b317));
+}
+.green.button1:hover{
+background-color:#89d228;
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -moz-radial-gradient(center bottom, circle, rgba(183,229,45,1) 0,rgba(183,229,45,0) 100px),-moz-linear-gradient(#90de31, #7fc01e);
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(183,229,45,1)), to(rgba(183,229,45,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#90de31), to(#7fc01e));
+}
+/* Orange Button */
+.orange.button1{
+color:#693e0a !important;
+border:1px solid #bea280 !important;
+background-color: #e38d27;
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -moz-radial-gradient(center bottom, circle, rgba(232,189,45,1) 0,rgba(232,189,45,0) 100px),-moz-linear-gradient(#f1982f, #d4821f);
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(232,189,45,1)), to(rgba(232,189,45,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1982f), to(#d4821f));
+}
+.orange.button1:hover{
+background-color:#ec9732;
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -moz-radial-gradient(center bottom, circle, rgba(241,192,52,1) 0,rgba(241,192,52,0) 100px),-moz-linear-gradient(#f9a746, #e18f2b);
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(241,192,52,1)), to(rgba(241,192,52,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9a746), to(#e18f2b));
+}
+/* Orange Button */
+.gray.button1{
+color:#525252 !important;
+border:1px solid #a5a5a5 !important;
+background-color: #a9adb1;
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -moz-radial-gradient(center bottom, circle, rgba(197,199,202,1) 0,rgba(197,199,202,0) 100px),-moz-linear-gradient(#c5c7ca, #92989c);
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(197,199,202,1)), to(rgba(197,199,202,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5c7ca), to(#92989c));
+}
+.gray.button1:hover{
+background-color:#b6bbc0;
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -moz-radial-gradient(center bottom, circle, rgba(202,205,208,1) 0,rgba(202,205,208,0) 100px),-moz-linear-gradient(#d1d3d6, #9fa5a9);
+background-image:url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), url('https://lh6.googleusercontent.com/-4cWMlF-uqh4/TltCfL8C4DI/AAAAAAAABhE/qNaNueMVpCU/s144/button_bg.png'), -webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(202,205,208,1)), to(rgba(202,205,208,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#d1d3d6), to(#9fa5a9));
+}
+

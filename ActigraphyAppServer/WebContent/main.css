@@ -1,0 +1,193 @@
+body
+{margin:0px; padding:0px; background:#fff;}
+
+#wrapper{width:1000px; margin:auto; background:#f2f2f2; border-radius:0 0 25px 25px;}
+#header{padding:10px; background:url(img/logo.png) no-repeat; background-size:100%; height:150px;}
+#logo{float:left; width:300px;}
+#main_menu{float:left; margin-left:280px;}
+ul#menu{display:inline-block;}
+
+ul#menu{
+    padding:2px 24px 20px 40px;
+    margin: 0;
+	float:left;
+	background:#0b61a4;
+	height:25px;
+	border-radius:20px;
+	width:406px;
+	margin-top:10px;
+	margin-right:10px;
+	    font-family: 'Pacifico', Arial, sans-serif;
+		font-weight:bold;}
+	
+ ul#menu ul.sub-menu {
+    padding:0px;
+    margin: 0;
+    background-color:#3f92d2;
+	float:left;}	
+	
+ ul#menu ul.sub-menu1 {
+    padding:0px;
+    margin: 0;
+    background-color:#3f92d2;
+	float:left;}		
+
+ul#menu li{
+    list-style-type: none;
+    display: inline-block;
+}
+
+
+/*Link Appearance*/
+ul#menu li a, ul#menu li ul.sub-menu li a {
+    text-decoration: none;
+	color:#fff;
+    padding: 5px;
+    display:inline-block;
+}
+
+ul#menu li a, ul#menu li ul.sub-menu1 li a {
+    text-decoration: none;
+	color:#fff;
+    padding: 5px;
+    display:inline-block;
+}
+/*Make the parent of sub-menu relative*/
+ul#menu li {
+    position: relative;
+	font-size:14px;
+}
+/*sub menu*/
+ul#menu li ul.sub-menu {
+    display:none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100px;
+}
+
+ul#menu li ul.sub-menu1 {
+    display:none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100px;
+}
+
+
+ul#menu li:hover ul.sub-menu {
+    display:inline;
+	width:425px;
+	margin-left:-40px;
+	border-radius:0 0 20px 20px;
+padding:5px;
+padding-left:40px;
+ font-family: 'Pacifico', Arial, sans-serif;
+overflow:visible;}
+
+ul#menu li:hover ul.sub-menu1 {
+    display:inline;
+	width:425px;
+	margin-left:-229px;
+	border-radius:0 0 20px 20px;
+padding:5px;
+padding-left:40px;
+ font-family: 'Pacifico', Arial, sans-serif;
+}
+
+
+
+ul#menu li:hover
+{
+background:#3f92d2!important;
+border-radius:5px;
+}
+
+ul#menu li:hover ul.sub-menu li:hover {background:#0b61a4!important;}
+
+#container1
+{border-radius:25px; height:600px; max-height:600px;background:#ddd; margin-top:-50px; padding:0px 0 20px 0; border: 1px solid #fff;}
+
+#left_sidebar{ float:left; width:220px; margin-top:-50px; background:url(img/left.png);}
+
+#section1{text-align:right; border-bottom:1px solid #fff; height:160px; padding:10px; border-radius:0 0 0 25px;}
+#section1 p {color:#fff;}
+#section2{border-right:1px solid #fff; padding:10px; height:200px; border-bottom:1px solid #fff; border-radius:0 0 0 25px;}
+#section2 h2{text-align:center;}
+#section2 p{color:#000000; text-align:right; 	    font-family: 'Pacifico', Arial, sans-serif; font-size:12px; }
+#section3{border-right:1px solid #fff; padding:10px;  height:180px; border-radius:0 0 0 25px;}
+#section3{text-align:center;}
+#section3 p {color:#000000; text-align:right; 	    font-family: 'Pacifico', Arial, sans-serif; font-size:12px;}
+
+
+#main{float:left; position:absolute; margin-left:200px;padding-left:30px; padding-top:20px;}
+
+#column1{width:160px; padding:50px 10px; text-align:center; float: left; margin-top:-310px; background:url(img/right.png); border-radius:25px; margin-left:570px;}
+
+#column2{float: left; margin-top:0px; }
+
+#column1 #score{font-size:70px; color:#ff4900; line-height:0.6em;}
+#column1 p{color:#fff;}
+
+#column2 #cbottom{font-size:12px;}
+
+#column3{width:170px; padding:50px 20px; text-align:center; float: left; margin-top:-105px; margin-left:60px; background:#0b61a4; border-radius:25px;}
+
+#column3 p{color:#fff;}
+
+#column3 #score{font-size:90px; color:#ff4900; line-height:0.1em;}
+
+#column3 #cbottom{font-size:12px;}
+
+
+#accordion{
+    scrollbar-face-color: #ff4900;;
+    scrollbar-shadow-color: #FFFFFF;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #FFFFFF;
+    scrollbar-darkshadow-color: #FFFFFF;
+    scrollbar-track-color: #FFFFFF;
+    scrollbar-arrow-color: #FFFFFF;
+}
+
+/* Let's get this party started */
+#accordion::-webkit-scrollbar {
+    width: 14px;
+	cursor:pointer;
+}
+
+#accordion::-webkit-scrollbar:hover {
+    width: 14px;
+	cursor:pointer;
+}
+ 
+/* Track */
+#accordion::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+#accordion::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #ff4900;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+
+#container{background:transparant; border-radius:0px;}
+
+a.button span{color:#fff;}
+
+
+h2{color:#ff4900;}
+
+
+.sub-menu,.sub-menu1 li a
+{font-size:12px!important;}
+
+.sub-menu,.sub-menu1 li a:hover
+{background:#0b61a4;
+border-radius:5px;}

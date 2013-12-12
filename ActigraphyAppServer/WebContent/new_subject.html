@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Add Subject</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="add_subject.css" type"text/css"/>
+  <link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.min.css" />
+  <script type="text/javascript" src="jsDatePick.min.1.3.js"></script>    
+  <script type="text/javascript">
+	window.onload = function(){
+		new JsDatePick({
+			useMode:2,
+			target:"inputField",
+			dateFormat:"%d-%M-%Y"
+		});
+	};
+</script>
+</head>
+
+<body>
+<form>
+  <fieldset>
+  <h3>Required Fields</h3>
+    <label for="identity">Identity *<input type="text" name="identity" id="identity" style="width:220px;"/></label>
+    <label for="initials">Initials<input type="text" name="initials" id="initials" style="width:60px;"/></label>	
+    <label for="dob">Date of Birth *<input type="text" name="dob" id="inputField"  style="width:100px;"/></label>	
+    <label for="age">Age<input type="text" name="age" id="age"  style="width:40px;"/></label>	
+    <label for="gender">Gender *<input type="text" name="gender" id="gender" style="width:80px;"></label> 
+	<p style="margin:0px; padding:0px; text-align:right; font-size:12px; margin-right:32px;">Fields with * marks are mandatory.</p>
+</fieldset>
+
+<fieldset>
+  <h3>Optional Fields</h3>
+    <label for="prefix">Prefix<input type="text" name="prefix" id="prefix"  style="width:60px;"/></label>
+    <label for="fname">First Name<input type="text" name="fname" id="fname"  style="width:200px;"/></label>	
+    <label for="initial">Initial<input type="text" name="initial" id="initial"  style="width:60px;"/></label>	
+    <label for="lname">Last Name<input type="text" name="lname" id="lname" style="width:195px;"/></label>	
+    <label for="address">Street Address<input type="text" name="address" id="address" style="width:558px;"/></label>	
+    <label for="city">City<input type="text" name="city" id="city" style="width:180px;"/></label>	
+    <label for="state">State or Province<input type="text" name="state" id="state" style="width:110px;"/></label>	
+    <label for="postal">Postal Code<input type="text" name="postal" id="postal"  style="width:100px;"/></label>	
+    <label for="country">Country<input type="text" name="country" id="country"  style="width:125px;"/></label>	
+    <label for="phone">Phone<input type="text" name="phone" id="phone" /></label>	
+  </fieldset>
+ 
+  <fieldset>
+    <input type="submit" value="OK"  style="float:right;" class="button1 small blue"/>
+    <input type="button" value="Cancel" style="float:right;"class="button1 small blue"/>
+  </fieldset>
+</form>
+</body>
+</html>

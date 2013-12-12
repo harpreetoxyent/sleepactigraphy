@@ -1,0 +1,21 @@
+div, span, p, td {
+	font-family: Arial, sans-serif;
+}
+#chart {
+	display: inline-block;
+}
+#legend {
+	display: inline-block;
+	position: relative;
+	left: 0px;
+}
+#legend_container {
+	position: relative;
+	right: 0;
+	width: 0;
+}
+#chart_container {
+	float: left;
+	position: relative;
+	margin-top:-150px;
+}
