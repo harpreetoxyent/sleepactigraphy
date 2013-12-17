@@ -7,5 +7,10 @@
     <string name="About">About</string>
     <string name="Settings">Settings</string>
     <string name="Exit">Exit</string>
-
+ 	<string name="aboutText">\n\n  Version   \n  Build  </string>
+    <string name="aboutNumber">\n\n v.1.1.Beta \n  Revision 3</string>
+    <string name ="urlText">\n\n\n\n\n Visit Actigraph Home page at </string>
+	<string name="link">\n\n\n\n\n\n "http://www.google.com"</string>  	
+	<color name="gray">#25383C</color>
+	<color name="white">#FFFFFF</color>
 </resources>
