@@ -2,15 +2,21 @@
   <menu xmlns:android="http://schemas.android.com/apk/res/android">
      
      <item android:id="@+id/menu_About"
-          android:icon="@drawable/icon_about"
-          android:title="@string/About" />
+           android:icon="@drawable/icon_about"
+           android:orderInCategory="100"
+    	   android:showAsAction="always"
+           android:title="@string/About" />
  
  	<item android:id="@+id/menu_Settings"
           android:icon="@drawable/icon_settings"
+          android:orderInCategory="100"
+    	  android:showAsAction="always"
           android:title="@string/Settings" />
  
  	<item android:id="@+id/menu_Exit"
           android:icon="@drawable/icon_exit"
+          android:orderInCategory="100"
+    	  android:showAsAction="always"
           android:title="@string/Exit" />   
       
       

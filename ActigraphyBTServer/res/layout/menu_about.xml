@@ -1,13 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent" 
+              android:orientation="vertical" 
+              android:background="@color/gray">
 
-    <TextView
-        android:id="@+id/showInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_weight="1" 
-        android:text="Welcome to Actigraphy" />
+     
+	<TextView   android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor= "@color/white"
+            android:textSize="16dip" 
+            android:textStyle="bold|italic"
+            android:inputType="textMultiLine"
+            android:layout_alignParentLeft="true" 
+            android:text="@string/aboutText"/>
+	
+	<TextView   android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor= "@color/white"
+            android:textSize="16dip" 
+            android:textStyle="bold|italic"
+            android:inputType="textMultiLine"
+            android:layout_alignParentRight="true" 
+            android:text="@string/aboutNumber"/>
+	
+	<TextView   android:id="@+id/urlText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor= "@color/white"
+            android:textSize="16dip" 
+            android:textStyle="bold|italic"
+            android:layout_centerHorizontal="true" 
+            android:text="@string/urlText"/>
+ 	
+	<TextView   android:id="@+id/urlLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor= "@color/white"
+            android:textSize="16dip" 
+            android:textStyle="bold|italic"
+            android:layout_centerHorizontal="true" 
+            android:autoLink="web"  
+          	android:linksClickable="true"
+            android:text="@string/link"/> 
+	
 
+ 	<ImageView android:id="@+id/title_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center|bottom"
+            android:src="@drawable/about_launcher"
+            android:scaleType="fitEnd" />
+ 
 </RelativeLayout>

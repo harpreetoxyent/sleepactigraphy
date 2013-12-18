@@ -265,22 +265,16 @@ public class MainActivity extends Activity
     	switch (item.getItemId())
         {
         case R.id.menu_About:
-            // Single menu item is selected do something
-            // Ex: launching new activity/screen or show alert message
-            Toast.makeText(MainActivity.this, "About is Selected", Toast.LENGTH_SHORT).show();
-            return true;
+            
+        	setContentView(R.layout.menu_about);
+        	return true;
         
         case R.id.menu_Settings:
-            // Single menu item is selected do something
-            // Ex: launching new activity/screen or show alert message
-            Toast.makeText(MainActivity.this, "Settings is Selected", Toast.LENGTH_SHORT).show();
-            return true;
+              return true;
          
         case R.id.menu_Exit:
-            // Single menu item is selected do something
-            // Ex: launching new activity/screen or show alert message
-            Toast.makeText(MainActivity.this, "Exit is Selected", Toast.LENGTH_SHORT).show();
-            return true;
+            finish();
+        	return true;
             
         default:
             return super.onOptionsItemSelected(item);

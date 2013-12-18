@@ -25,19 +25,25 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int actigraphy=0x7f020000;
-        public static final int actigraphy_serverdata=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int icon_about=0x7f020003;
-        public static final int icon_exit=0x7f020004;
-        public static final int icon_settings=0x7f020005;
+        public static final int about_launcher=0x7f020000;
+        public static final int actigraphy=0x7f020001;
+        public static final int actigraphy_serverdata=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int icon_about=0x7f020004;
+        public static final int icon_exit=0x7f020005;
+        public static final int icon_settings=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f090001;
-        public static final int menu_About=0x7f090002;
-        public static final int menu_Exit=0x7f090004;
-        public static final int menu_Settings=0x7f090003;
+        public static final int action_settings=0x7f090006;
+        public static final int menu_About=0x7f090007;
+        public static final int menu_Exit=0x7f090009;
+        public static final int menu_Settings=0x7f090008;
+        public static final int number=0x7f090002;
         public static final int showInfo=0x7f090000;
+        public static final int text=0x7f090001;
+        public static final int title_image=0x7f090005;
+        public static final int urlLink=0x7f090004;
+        public static final int urlText=0x7f090003;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
