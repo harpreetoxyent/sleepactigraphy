@@ -265,12 +265,12 @@ public class MainActivity extends Activity
     	switch (item.getItemId())
         {
         case R.id.menu_About:
-            
         	setContentView(R.layout.menu_about);
         	return true;
         
         case R.id.menu_Settings:
-              return true;
+        	setContentView(R.layout.menu_settings);  
+        	return true;
          
         case R.id.menu_Exit:
             finish();

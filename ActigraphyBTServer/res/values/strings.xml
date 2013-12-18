@@ -10,7 +10,11 @@
  	<string name="aboutText">\n\n  Version   \n  Build  </string>
     <string name="aboutNumber">\n\n v.1.1.Beta \n  Revision 3</string>
     <string name ="urlText">\n\n\n\n\n Visit Actigraph Home page at </string>
-	<string name="link">\n\n\n\n\n\n "http://www.google.com"</string>  	
+	<string name="link">\n\n\n\n\n\n "http://www.google.com"</string>
+	<string name= "labelIP">Client IP address</string>
+	<string name="button_label">Show Prompt Dialog</string>	
+	<string name= "Submit">Submit</string>
+	<string name= "Cancel">Cancel</string>
 	<color name="gray">#25383C</color>
 	<color name="white">#FFFFFF</color>
 </resources>
