@@ -5,26 +5,57 @@
               android:layout_height="fill_parent" 
               android:orientation="vertical" 
               android:padding="10dp"
+              android:descendantFocusability="blocksDescendants"
               android:background="@color/gray">
               
     
-     <TextView android:id="@+id/textView"
+     <TextView android:id="@+id/textViewRecording"
 			  android:layout_width="wrap_content"
 			  android:layout_height="wrap_content"
 			  android:textColor= "@color/white"
-              android:textSize="16dip" 
-              android:textStyle="bold|italic"
-			  android:text="@string/labelIP"
+              android:textSize="22dip" 
+              android:textStyle="bold"
+              android:clickable="true"
+              android:focusableInTouchMode="false"
+			  android:text="@string/labelRecording"
+			  android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView android:id="@+id/textViewRecordingValue"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:textColor= "@color/white"
+              android:textSize="18dip" 
+              android:textStyle="bold"
+			  android:text="@string/valueRecording"
+			  android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView android:id="@+id/textViewChart"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:textColor= "@color/white"
+              android:textSize="22dip" 
+              android:textStyle="bold"
+              android:clickable="true"
+			  android:text="@string/labelChart"
+			  android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView android:id="@+id/textViewChartValue"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:textColor= "@color/white"
+              android:textSize="18dip" 
+              android:textStyle="bold"
+			  android:text="@string/valueChart"
 			  android:textAppearance="?android:attr/textAppearanceLarge" />
         	  
-    <EditText android:id="@+id/userInput"
+   <!--  <EditText android:id="@+id/userInput"
 		      android:layout_width="match_parent"
 		      android:inputType="text"
 		      android:layout_height="wrap_content" >
 		      
         <requestFocus />
 	</EditText>	
-	
+	 
     
      <Button
         android:id="@+id/Submit"
@@ -37,5 +68,5 @@
         android:text="@string/Submit"
         android:textColor="#FFFFFF" />
     		  
-    
+    -->
 </LinearLayout>

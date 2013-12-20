@@ -11,7 +11,10 @@
     <string name="aboutNumber">\n\n v.1.1.Beta \n  Revision 3</string>
     <string name ="urlText">\n\n\n\n\n Visit Actigraph Home page at </string>
 	<string name="link">\n\n\n\n\n\n "http://www.google.com"</string>
-	<string name= "labelIP">Client IP address</string>
+	<string name= "labelRecording">Recording Time Interval</string>
+	<string name= "valueRecording">The time interval between two recorded data points.Activity Values are averaged within this interval</string>
+	<string name= "labelChart">\nChart Point Time Interval</string>
+	<string name= "valueChart">The time interval between two chart points.Must be multiple of Recording Time Interval</string>
 	<string name="button_label">Show Prompt Dialog</string>	
 	<string name= "Submit">Submit</string>
 	<string name= "Cancel">Cancel</string>

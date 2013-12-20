@@ -17,10 +17,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.actigraphy.constants.BTServerConstants;
 import com.example.bluetoothserver.R;
 // import statements for Menu items
-
-
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 //import com.example.sleep.RecordActivity.SendFile;
@@ -31,14 +31,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity 
 {
@@ -49,7 +52,11 @@ public class MainActivity extends Activity
 	private static final UUID MY_UUID = UUID
 			.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	public String dataReceived = null;
-
+	private TextView recordingLabel;
+	private TextView chartLabel;
+	final Context context = this;
+	final CharSequence[] items = {" 1sec "," 2sec "," 3sec "," 5sec ", "10sec"};
+	AlertDialog alertDialog; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -269,7 +276,59 @@ public class MainActivity extends Activity
         	return true;
         
         case R.id.menu_Settings:
-        	setContentView(R.layout.menu_settings);  
+        	setContentView(R.layout.menu_settings); 
+        	recordingLabel=(TextView)findViewById(R.id.textViewRecording);
+        	recordingLabel.setOnClickListener(new OnClickListener() 
+            { 
+        		@Override
+                public void onClick(View view)
+        		{
+        			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        			alertDialogBuilder.setTitle("Select value of Recording Time Interval");
+        			alertDialogBuilder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener()
+        			{
+        				 public void onClick(DialogInterface dialog, int item)
+        				 {
+        					 switch(item)
+        	                    {
+        	                        case 0:
+        	                                // Your code when first option seletced
+        	                                 break;
+        	                        case 1:
+        	                                // Your code when 2nd  option seletced
+        	                                
+        	                                break;
+        	                        case 2:
+        	                               // Your code when 3rd option seletced
+        	                                break;
+        	                        case 3:
+        	                                 // Your code when 4th  option seletced            
+        	                                break;
+        	                        case 4:
+   	                                 // Your code when 4th  option seletced            
+        	                        		break;
+        	                        
+        	                    }
+        					 alertDialog.dismiss();    
+        	                
+        				 }
+        				 
+        			});
+        			alertDialogBuilder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+        			 alertDialog = alertDialogBuilder.create();
+               	 
+        			// show it
+        			alertDialog.show();	
+                }
+            });
+        	
         	return true;
          
         case R.id.menu_Exit:
@@ -280,7 +339,5 @@ public class MainActivity extends Activity
             return super.onOptionsItemSelected(item);
         }
     }    
-	
-	
 
 }
