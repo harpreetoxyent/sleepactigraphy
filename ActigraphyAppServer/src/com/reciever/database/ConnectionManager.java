@@ -262,7 +262,7 @@ public class ConnectionManager {
 				}
 		}
 		int checkAllItems = list.size();
-		while(checkAllItems<11 && calculatePS == true)	
+		while(checkAllItems>11 && calculatePS == true)	
 		{
 			checkAllItems--;
 			int count = currEpochIndex;
