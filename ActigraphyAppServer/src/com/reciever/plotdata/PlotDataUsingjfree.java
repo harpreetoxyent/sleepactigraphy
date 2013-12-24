@@ -30,10 +30,7 @@ import org.apache.xmlbeans.XmlToken;
 import com.reciever.constants.ActigraphyServerConstants;
 
 public class PlotDataUsingjfree {
-	ArrayList<Integer> list1 = new ArrayList<Integer>();
-	ArrayList<Double> listX = new ArrayList<Double>();
-	ArrayList<Double> listY = new ArrayList<Double>();
-	ArrayList<Double> listZ = new ArrayList<Double>();
+	
 	String filename;
 	public PlotDataUsingjfree(String name) {
 		filename=name;

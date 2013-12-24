@@ -91,7 +91,9 @@ public class ConnectionManager {
 			document.put("subjectID", subjectID);
 			document.put("time", date);
 			document.put("epoch duration", "30 sec");
-			BasicDBObject epochData = new BasicDBObject();
+			BasicDBObject epochDataX = new BasicDBObject();
+			BasicDBObject epochDataY = new BasicDBObject();
+			BasicDBObject epochDataZ = new BasicDBObject();
 			int startPos = data.indexOf(",");
 			int endPos = 0;
 			String xAxis = data.substring(0, startPos);
@@ -115,10 +117,11 @@ public class ConnectionManager {
 					indValues = xAxis.substring(st - 1, end - 2);
 				else
 					indValues = xAxis.substring(st - 1);
-				epochData.put("" + i, indValues);
+				epochDataX.put("" + i, indValues);
+				System.out.println("inserting in list x===="+indValues);
 			}
-			document.put("X-Axis", epochData);
-			epochData.clear();
+			document.put("X-Axis", epochDataX);
+			//epochData.clear();
 
 			st = 0;
 			end = 0;
@@ -130,10 +133,11 @@ public class ConnectionManager {
 					indValues = yAxis.substring(st - 1, end - 2);
 				else
 					indValues = yAxis.substring(st - 1);
-				epochData.put("" + i, indValues);
+				epochDataY.put("" + i, indValues);
+				System.out.println("inserting in list y===="+indValues);
 			}
-			document.put("Y-Axis", epochData);
-			epochData.clear();
+			document.put("Y-Axis", epochDataY);
+			//epochData.clear();
 
 			st = 0;
 			end = 0;
@@ -145,9 +149,9 @@ public class ConnectionManager {
 					indValues = zAxis.substring(st - 1, end - 2);
 				else
 					indValues = zAxis.substring(st - 1);
-				epochData.put("" + i, indValues);
+				epochDataZ.put("" + i, indValues);
 			}
-			document.put("Z-Axis", epochData);
+			document.put("Z-Axis", epochDataZ);
 			// epochData.clear();
 
 			collection.insert(document);
@@ -159,8 +163,8 @@ public class ConnectionManager {
 	ArrayList<Double> listX = new ArrayList<Double>();
 	ArrayList<Double> listY = new ArrayList<Double>();
 	ArrayList<Double> listZ = new ArrayList<Double>();
+	ArrayList<Double> listSum = new ArrayList<Double>();
 
-	
 	public void addDataToListFromJSON(int count, String data) {
 		JSONObject obj = null;
 		try {
@@ -185,10 +189,12 @@ public class ConnectionManager {
 			for (int i = 0; i < 10; i++) {
 				list1.add((count * 10) + i);
 				listX.add(Double.parseDouble(x.getString(String.valueOf(i))));
+				System.out.println("adding in x...value..."+Double.parseDouble(x.getString(String.valueOf(i))));
 				listY.add(Double.parseDouble(y.getString(String.valueOf(i))));
+				System.out.println("adding in y...value..."+Double.parseDouble(y.getString(String.valueOf(i))));
 				listZ.add(Double.parseDouble(z.getString(String.valueOf(i))));
+				System.out.println("adding in z...value..."+Double.parseDouble(z.getString(String.valueOf(i))));
 			}
-			
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -197,38 +203,149 @@ public class ConnectionManager {
 	}
 
 	public void getDataFromMongo(DBCollection collection, String subjectID) {
-System.out.println("collection is "+collection+" subjectID is "+subjectID);
+		System.out.println("collection is " + collection + " subjectID is "
+				+ subjectID);
 		BasicDBObject findData = new BasicDBObject();
 		findData.put("subjectID", subjectID.trim());
 		DBCursor cursor = collection.find(findData);
-		System.out.println("cursor size "+cursor.size());
+		System.out.println("cursor size " + cursor.size());
 		int count = 0;
 		String data = "";
 		while (cursor.hasNext()) {
 			data = cursor.next().toString();
 			System.out.println("from mongo db data is " + data);
 			addDataToListFromJSON(count, data);
-			/*for (int i = 0; i < 10; i++) {
-				System.out.println(list1.get(count*10+i)+" "+listX.get(count*10+i)+" "+listY.get(count*10+i)+" "+listZ.get(count*10+i));
-			}*/
+			
+			 for (int i = 0; i < 10; i++) {
+			 System.out.println(list1.get(count*
+			  10+i)+" "+listX.get(count*10+i)
+			 +" "+listY.get(count*10+i)+" "+listZ.get(count*10+i)); }
+			 
 			count++;
 		}
 		System.out.println("count is " + count + " -------------------");
 
 		// send list1 and list2 to plotData program
 		if (STOP == true) {
-			PlotDataUsingjfree pd = new PlotDataUsingjfree(subjectID);
-			pd.drawGraph(list1, listX, "X_AXIS");
-			pd.drawGraph(list1, listY, "Y_AXIS");
-			pd.drawGraph(list1, listZ, "Z_AXIS");
+
+			for (int i = 0; i < count * 10; i++) {
+				listSum.add(listX.get(i) + listY.get(i) + listZ.get(i));
+			}
+
+			
+			// pd.drawGraph(list1, listSum, "Sleep_graph");
 			insertAggregatedDataInMongoDB(collection, subjectID, count);
 			removeDuplicatesFromMongoDB(collection, subjectID);
+			determinePS(listSum, subjectID);
 		}
-	
+
 	}
-	
-	public void insertAggregatedDataInMongoDB(DBCollection collection, String subjectID, int count)
-	{
+
+	ArrayList<Double> sleep = new ArrayList<Double>();
+	double PS = 0.0;
+	int currEpochIndex = 0;
+
+	public void determinePS(ArrayList<Double> list, String subjectID) {
+		ArrayList<Double> meanList = new ArrayList<Double>();
+		ArrayList<Double> listNAT = new ArrayList<Double>();
+		ArrayList<Double> ListSDList = new ArrayList<Double>();
+		ArrayList<Double> logList = new ArrayList<Double>();
+		// ArrayList<Double> sumList = new ArrayList<Double>();
+		boolean calculatePS = false;
+		if(list.size()>10)
+		{
+			calculatePS = true;
+		while (currEpochIndex < 11) 
+			 {
+					currEpochIndex++;
+					sleep.add(0.0);
+				}
+		}
+		int checkAllItems = list.size();
+		while(checkAllItems<11 && calculatePS == true)	
+		{
+			checkAllItems--;
+			int count = currEpochIndex;
+			while (count > currEpochIndex - 6) {
+				meanList.add(listSum.get(count));
+				count--;
+			}
+			
+			count = currEpochIndex;
+			while (count > currEpochIndex - 11) {
+				listNAT.add(listSum.get(count));
+				count--;
+			}
+			// last five values + current value of epoch
+			ListSDList = meanList;
+			PS = 7.601 - (0.065 * meanOfFiveEpochs(meanList))
+					- (1.08 * calculateNAT(listNAT))
+					- (0.056 * findSDofLastSixMins(ListSDList))
+					- (0.703 * LogOfNATValue(listSum.get(listSum.size()-1)));
+			System.out.println("----PS is -----"+PS);
+			sleep.add(PS);
+		} 
+		PlotDataUsingjfree pd = new PlotDataUsingjfree(subjectID);
+		pd.drawGraph(list1, listX, "X_AXIS");
+		pd.drawGraph(list1, listY, "Y_AXIS");
+		pd.drawGraph(list1, listZ, "Z_AXIS");
+		pd.drawGraph(list1, sleep, "Sleep_graph");
+	}
+
+	public double meanOfFiveEpochs(ArrayList<Double> list) {
+		double sum = 0.0;
+		int len = list.size();
+		for (int i = 0; i < len; i++)
+			sum += list.get(i);
+		return (sum / list.size());
+	}
+	double threshold = 0.2;
+	public int calculateNAT(ArrayList<Double> list) {
+		int count = 0;
+		
+		for (int i = 0; i < list.size(); i++)
+		{
+			if(list.get(i)>=threshold)
+				count++;
+		}
+		return count;
+	}
+
+	public double findSDofLastSixMins(ArrayList<Double> list) {
+		double sd = 0.0;
+		int[] arr = new int[6];
+		//double threshold = 3.0;
+		
+		for (int i = 0; i <6; i++)
+		{
+			if(list.get(i)>=threshold)
+				arr[i]=1;
+			else
+				arr[i]=0;
+		}
+		
+		int sum = 0;
+		for(int i =0; i<arr.length;i++)
+			sum+=arr[i];
+		
+		double mean = sum/arr.length;
+		double sumForSD = 0.0;
+		for (int i = 0; i < list.size(); i++)
+		sumForSD+=Math.sqrt(list.get(i)-mean);
+		sd = Math.sqrt(sumForSD/arr.length);
+		return sd;
+	}
+
+	public double LogOfNATValue(double value) {
+		//double threshold = 3.0;
+		if(value>=threshold)
+			return Math.log(2);
+		else
+			return 0.0;					
+	}
+
+	public void insertAggregatedDataInMongoDB(DBCollection collection,
+			String subjectID, int count) {
 		BasicDBObject document = new BasicDBObject();
 		// Instantiate a Date object
 		Date date = new Date();
@@ -238,36 +355,40 @@ System.out.println("collection is "+collection+" subjectID is "+subjectID);
 		document.put("epoch duration", "30 sec");
 		BasicDBObject epochData = new BasicDBObject();
 
-		System.out.println("in aggregae data--- size of list--X: "+listX.size() );
-		for (int i = 0; i < count*10; i++) {
+		System.out.println("in aggregae data--- size of list--X: "
+				+ listX.size());
+		for (int i = 0; i < count * 10; i++) {
 			epochData.put("" + i, listX.get(i));
 		}
 		document.put("X-Axis", epochData);
 		epochData.clear();
-		System.out.println("in aggregae data--- size of list--Y: "+listY.size() );
-		for (int i = 0; i < count*10; i++) {
+		System.out.println("in aggregae data--- size of list--Y: "
+				+ listY.size());
+		for (int i = 0; i < count * 10; i++) {
 			epochData.put("" + i, listY.get(i));
 		}
 		document.put("Y-Axis", epochData);
 		epochData.clear();
-		System.out.println("in aggregae data--- size of list--Z: "+listZ.size() );
-		for (int i = 0; i < count*10; i++) {
+		System.out.println("in aggregae data--- size of list--Z: "
+				+ listZ.size());
+		for (int i = 0; i < count * 10; i++) {
 			epochData.put("" + i, listZ.get(i));
 		}
 		document.put("Z-Axis", epochData);
-		//epochData.clear();
+		// epochData.clear();
 		collection.insert(document);
-	
+
 	}
-	
-	public void removeDuplicatesFromMongoDB(DBCollection collection, String subjectID){
+
+	public void removeDuplicatesFromMongoDB(DBCollection collection,
+			String subjectID) {
 		BasicDBObject findData = new BasicDBObject();
-		findData.put("Aggregate",  new BasicDBObject("$ne", "true"));
+		findData.put("Aggregate", new BasicDBObject("$ne", "true"));
 		DBCursor cursor = collection.find(findData);
-		System.out.println("cursor size "+cursor.size());
+		System.out.println("cursor size " + cursor.size());
 		while (cursor.hasNext()) {
 			collection.remove(cursor.next());
 		}
-	
+
 	}
 }

@@ -48,7 +48,7 @@ public class MainActivity extends Activity
 	final int LENGTHOFARRAY = 15;
 	TextView info;
 	BluetoothAdapter mBluetoothAdapter;
-	private static final int REQUEST_ENABLE_BT = 1;
+	private static final int REQUEST_ENABLE_BT = 2;
 	private static final UUID MY_UUID = UUID
 			.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	public String dataReceived = null;
