@@ -65,10 +65,11 @@ public class PlotDataUsingjfree {
 		
 		
 		try {
-			ChartUtilities.saveChartAsJPEG(new File("C:\\"+axis+".jpg"), chart,
+			ChartUtilities.saveChartAsJPEG(new File(ActigraphyServerConstants.Plot_Location_Save+axis+".jpg"), chart,
 					500, 300);
 		} catch (IOException e) {
 			System.err.println("Problem occurred creating chart.--"+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dip"
-        android:text="Shaker Demo"
+        android:text="Actigraphy Client for sending sensor data"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -72,14 +72,6 @@
         android:stretchColumns="*" >
 
         <TableRow>
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TIMER"
-                android:textSize="18sp" />
-
             <Button
                 android:id="@+id/start"
                 android:layout_width="wrap_content"

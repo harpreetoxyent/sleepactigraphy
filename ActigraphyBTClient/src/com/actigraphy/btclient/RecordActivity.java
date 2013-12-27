@@ -19,47 +19,22 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import com.example.shaker.R;
-
-import android.net.http.AndroidHttpClient;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View.OnClickListener;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.actigraphy.btclient.R;
+
 
 public class RecordActivity extends Activity implements SensorEventListener {
 	Button start, stop;
@@ -68,7 +43,7 @@ public class RecordActivity extends Activity implements SensorEventListener {
 	List<Double> xAxis = new ArrayList<Double>();
 	List<Double> yAxis = new ArrayList<Double>();
 	List<Double> zAxis = new ArrayList<Double>();
-	TextView timerVal;
+	//TextView timerVal;
 	int time = 0;
 	private double mLastX, mLastY, mLastZ;
 	private boolean mInitialized;
@@ -104,7 +79,7 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			int minutes = seconds / 60;
 			seconds = seconds % 60;
 			// time = seconds + minutes * 60;
-			timerVal.setText(String.format("%d:%02d", minutes, seconds));
+			//timerVal.setText(String.format("%d:%02d", minutes, seconds));
 			try {
 				addValue();
 			} catch (IOException e) {
@@ -162,7 +137,7 @@ public class RecordActivity extends Activity implements SensorEventListener {
 				SensorManager.SENSOR_DELAY_NORMAL);
 
 		// Declare the timer
-		timerVal = (TextView) findViewById(R.id.timer);
+		//timerVal = (TextView) findViewById(R.id.timer);
 		startTime = System.currentTimeMillis();
 		timerHandler.postDelayed(timerRunnable, 0);
 	}
