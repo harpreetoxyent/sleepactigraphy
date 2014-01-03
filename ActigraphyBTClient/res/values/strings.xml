@@ -3,5 +3,15 @@
 
     <string name="app_name">ActigraphyClient</string>
     <string name="action_settings">Settings</string>
+    <string name="timer">Timer</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="gear_welcome_text">Welcome to Actigraph client. Your data is being continuosly sent to the server.</string>    
+   	<string name="xaxis"> X-Axis</string>
+   	<string name="yaxis"> Y-Axis</string>
+   	<string name="zaxis"> Z-Axis</string>
+    <color name="gray">#25383C</color>
+	<color name="white">#FFFFFF</color>
+	<color name="black">#000000</color>
 
 </resources>

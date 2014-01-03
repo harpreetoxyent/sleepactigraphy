@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical" >
 
     <TextView
@@ -9,8 +10,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dip"
-        android:text="Actigraphy Client for sending sensor data"
-        android:textSize="16sp"
+        android:text="@string/gear_welcome_text"
+        android:textColor="@color/white"
+        android:textSize="16sp" 
         android:textStyle="bold" />
 
     <TableLayout
@@ -19,73 +21,104 @@
         android:paddingTop="10dip"
         android:stretchColumns="*" >
 
-        <TableRow>
+        <TableRow android:id="@+id/tableRow1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/xaxis"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="X-Axis"
-                android:textSize="14sp" />
+                android:text="@string/yaxis"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Y-Axis"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Z-Axis"
-                android:textSize="14sp" />
+                android:text="@string/zaxis"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </TableRow>
-
-        <TableRow>
+        
+        
+        <TableRow android:id="@+id/tableRow2">
 
             <TextView
                 android:id="@+id/x_axis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:textColor="@color/white"
+                android:gravity="center" 
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/y_axis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/z_axis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp" />
+            
         </TableRow>
-    </TableLayout>
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dip"
-        android:stretchColumns="*" >
-
-        <TableRow>
-            <Button
+ 		<TableRow 
+ 		    android:id="@+id/tableRow3"
+        	android:layout_width="fill_parent"
+       		android:layout_height="wrap_content"
+       		android:paddingTop="70dp" >
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timer"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"  /> 
+        </TableRow>   
+ 		<TableRow 
+ 		    	android:id="@+id/tableRow4"
+        		android:layout_width="fill_parent"
+       			android:layout_height="wrap_content"
+       			android:layout_margin="5sp"
+        		android:gravity="bottom"
+        		android:paddingTop="10dp"
+        		android:weightSum="2" >
+			
+	     	<Button
                 android:id="@+id/start"
-                android:layout_width="wrap_content"
+                android:background="@drawable/rect_shape"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Start"
+                android:layout_weight="1"    			
+                android:layout_gravity="bottom"
+                android:text="@string/start"
+                android:textColor="@color/black"
                 android:onClick="startProgram" />
-            <Button
+	     
+           <Button
                 android:id="@+id/stop"
-                android:layout_width="wrap_content"
+                android:background="@drawable/rect_shape"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Stop" />
-        </TableRow>
+                android:layout_weight="1"    			
+               	android:layout_gravity="bottom"
+                android:text="@string/stop" 
+                android:textColor="@color/black"/>
+        </TableRow>   
     </TableLayout>
 
 </LinearLayout>
