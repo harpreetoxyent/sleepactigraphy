@@ -62,7 +62,7 @@ public class MainActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		info = (TextView) findViewById(R.id.showInfo);
-		System.out.println("\nstarting bluetooth server");
+		System.out.println("\n starting bluetooth server");
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
 			// Device does not support Bluetooth
@@ -126,7 +126,6 @@ public class MainActivity extends Activity
 				}
 				// If a connection was accepted
 				if (socket != null) {
-					// System.out.println("\nsocket: obtnd:"+socket.toString());
 					// Do work to manage the connection (in a separate thread)
 					try {
 						manageConnectedSocket(socket);
@@ -150,63 +149,41 @@ public class MainActivity extends Activity
 	}
 
 	private class ConnectedThread extends Thread {
-		private final BluetoothSocket mmSocket;
-		private final InputStream mmInStream;
-		private final OutputStream mmOutStream;
+		private InputStream mmInStream = null;
+		private OutputStream mmOutStream = null;
 
-		public ConnectedThread(BluetoothSocket socket) {
-			mmSocket = socket;
-			InputStream tmpIn = null;
-			OutputStream tmpOut = null;
-			// Get the input and output streams, using temp objects because
-			// member streams are final
-			try {
+		public ConnectedThread(BluetoothSocket socket) 
+		{
+			// Get the input and output streams
+			try 
+			{
 				// System.out.println("\n getting input and output streams of socket");
-				tmpIn = socket.getInputStream();
-				tmpOut = socket.getOutputStream();
-			} catch (IOException e) {
+				mmInStream = socket.getInputStream();
+				mmOutStream = socket.getOutputStream();
+			} 
+			catch (IOException e) 
+			{
 				System.out.println("\n exception=" + e.getMessage());
 				e.printStackTrace();
 			}
-
-			mmInStream = tmpIn;
-			mmOutStream = tmpOut;
 		}
-
 		Handler mHandler;
-
 		public void run() {
 			System.out.println("\n Server thread running..");
-			byte[] buffer = new byte[1024]; // buffer store
-																// for the
-																// stream
-			int bytes; // bytes returned from read()
+			byte[] buffer = new byte[1024]; // buffer store for the stream
 			// Keep listening to the InputStream until an exception occurs
 			try {
 				// Read from the InputStream
-				bytes = mmInStream.read(buffer, 0, 1024);
+				mmInStream.read(buffer, 0, 1024);
 				dataReceived = new String(buffer);
 				if(dataReceived.charAt(0)=='_')
 					System.out.println("client pressed stop ^^^^^^^^^^^^");
-				
 				System.out.println("data received " + dataReceived);
 				sendData();
 			} catch (IOException e) {
 				System.out.println("Exception happened " + e.getMessage());
 				e.printStackTrace();
 			}
-		}
-
-		/* Call this from the main activity to send data to the remote device */
-		public void write(byte[] bytes) {
-			try {
-				mmOutStream.write(bytes);
-			} catch (IOException e) {
-			}
-		}
-
-		/* Call this from the main activity to shutdown the connection */
-		public void cancel() {
 		}
 	}
 
