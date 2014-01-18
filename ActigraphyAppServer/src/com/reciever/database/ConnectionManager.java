@@ -64,10 +64,10 @@ public class ConnectionManager {
 
 	boolean STOP = false;
 
-	public void saveDataInMongo(DBCollection collection, String data) {
+	public void saveDataInMongo(DBCollection collection, String data) 
+	{
 		BasicDBObject document = new BasicDBObject();
 		String subjectID = null;
-
 		int index = 0;
 		if (data.charAt(0) == '_' || data.startsWith("_")) {
 			System.out
@@ -76,9 +76,13 @@ public class ConnectionManager {
 			System.out.println("subject id while closing app--------"
 					+ subjectID);
 			STOP = true;
-		} else {
+		} 
+		else 
+		{
 			index = data.indexOf(",_");
 			subjectID = data.substring(index + 2, index + 19);
+			System.out.println("Inside else loop of receiving data at server subject id while closing app--------"
+					+ subjectID);			
 			data = data.substring(0, index - 1);
 		}
 
@@ -118,10 +122,10 @@ public class ConnectionManager {
 				else
 					indValues = xAxis.substring(st - 1);
 				epochDataX.put("" + i, indValues);
-				System.out.println("inserting in list x===="+indValues);
+				System.out.println("inserting in list x====" + indValues);
 			}
 			document.put("X-Axis", epochDataX);
-			//epochData.clear();
+			// epochData.clear();
 
 			st = 0;
 			end = 0;
@@ -134,10 +138,10 @@ public class ConnectionManager {
 				else
 					indValues = yAxis.substring(st - 1);
 				epochDataY.put("" + i, indValues);
-				System.out.println("inserting in list y===="+indValues);
+				System.out.println("inserting in list y====" + indValues);
 			}
 			document.put("Y-Axis", epochDataY);
-			//epochData.clear();
+			// epochData.clear();
 
 			st = 0;
 			end = 0;
@@ -187,13 +191,27 @@ public class ConnectionManager {
 		try {
 
 			for (int i = 0; i < 10; i++) {
-				list1.add((count * 10) + i);
-				listX.add(Double.parseDouble(x.getString(String.valueOf(i))));
-				System.out.println("adding in x...value..."+Double.parseDouble(x.getString(String.valueOf(i))));
-				listY.add(Double.parseDouble(y.getString(String.valueOf(i))));
-				System.out.println("adding in y...value..."+Double.parseDouble(y.getString(String.valueOf(i))));
-				listZ.add(Double.parseDouble(z.getString(String.valueOf(i))));
-				System.out.println("adding in z...value..."+Double.parseDouble(z.getString(String.valueOf(i))));
+				if(x.has(String.valueOf(i)))
+				{
+					list1.add((count * 10) + i);
+					listX.add(Double.parseDouble(x.getString(String.valueOf(i))));
+					System.out.println("adding in x...value..."
+							+ Double.parseDouble(x.getString(String.valueOf(i))));
+
+				}
+				if(y.has(String.valueOf(i)))
+				{
+					listY.add(Double.parseDouble(y.getString(String.valueOf(i))));
+					System.out.println("adding in y...value..."
+							+ Double.parseDouble(y.getString(String.valueOf(i))));
+				}
+				if(z.has(String.valueOf(i)))
+				{
+					listZ.add(Double.parseDouble(z.getString(String.valueOf(i))));
+					System.out.println("adding in z...value..."
+							+ Double.parseDouble(z.getString(String.valueOf(i))));
+					
+				}
 			}
 
 		} catch (JSONException e) {
@@ -211,16 +229,22 @@ public class ConnectionManager {
 		System.out.println("cursor size " + cursor.size());
 		int count = 0;
 		String data = "";
-		while (cursor.hasNext()) {
+		while (cursor.hasNext()) 
+		{
 			data = cursor.next().toString();
-			System.out.println("from mongo db data is " + data);
+			System.out.println("from mongo db data is " + data+"--list1 size="+list1.size());
 			addDataToListFromJSON(count, data);
-			
-			 for (int i = 0; i < 10; i++) {
-			 System.out.println(list1.get(count*
-			  10+i)+" "+listX.get(count*10+i)
-			 +" "+listY.get(count*10+i)+" "+listZ.get(count*10+i)); }
-			 
+			for (int i = 0; i < 10; i++) 
+			{
+				if(list1.size() > count * 10 + i)
+				{
+					System.out.println(list1.get(count * 10 + i) + " "
+						+ listX.get(count * 10 + i) + " "
+						+ listY.get(count * 10 + i) + " "
+						+ listZ.get(count * 10 + i));
+				}
+			}
+
 			count++;
 		}
 		System.out.println("count is " + count + " -------------------");
@@ -232,7 +256,6 @@ public class ConnectionManager {
 				listSum.add(listX.get(i) + listY.get(i) + listZ.get(i));
 			}
 
-			
 			// pd.drawGraph(list1, listSum, "Sleep_graph");
 			insertAggregatedDataInMongoDB(collection, subjectID, count);
 			removeDuplicatesFromMongoDB(collection, subjectID);
@@ -252,39 +275,43 @@ public class ConnectionManager {
 		ArrayList<Double> logList = new ArrayList<Double>();
 		// ArrayList<Double> sumList = new ArrayList<Double>();
 		boolean calculatePS = false;
-		if(list.size()>10)
-		{
+		if (list.size() > 10) {
 			calculatePS = true;
-		while (currEpochIndex < 11) 
-			 {
-					currEpochIndex++;
-					sleep.add(0.0);
-				}
+			while (currEpochIndex < 6) {
+				currEpochIndex++;
+				sleep.add(0.0);
+			}
 		}
-		int checkAllItems = list.size();
-		while(checkAllItems>11 && calculatePS == true)	
-		{
+		int checkAllItems = list.size()-6;
+		while (checkAllItems > 11 && calculatePS == true) {
 			checkAllItems--;
-			int count = currEpochIndex;
+			int count = currEpochIndex+5;
 			while (count > currEpochIndex - 6) {
 				meanList.add(listSum.get(count));
 				count--;
 			}
-			
-			count = currEpochIndex;
-			while (count > currEpochIndex - 11) {
+
+			count = currEpochIndex +5;
+			while (count > currEpochIndex - 6) {
 				listNAT.add(listSum.get(count));
 				count--;
 			}
-			// last five values + current value of epoch
-			ListSDList = meanList;
-			PS = 7.601 - (0.065 * meanOfFiveEpochs(meanList))
+			
+			count = currEpochIndex;
+			while (count > currEpochIndex - 6) {
+				ListSDList.add(listSum.get(count));
+				count--;
+			}
+			
+		
+			PS = 7.601 - (0.065 * meanOfEpochs(meanList))
 					- (1.08 * calculateNAT(listNAT))
 					- (0.056 * findSDofLastSixMins(ListSDList))
-					- (0.703 * LogOfNATValue(listSum.get(listSum.size()-1)));
-			System.out.println("----PS is -----"+PS);
+					- (0.703 * LogOfNATValue(calculateNAT(listNAT)+1.0));
+			System.out.println("----PS is -----" + PS);
 			sleep.add(PS);
-		} 
+			currEpochIndex++;
+		}
 		PlotDataUsingjfree pd = new PlotDataUsingjfree(subjectID);
 		pd.drawGraph(list1, listX, "X_AXIS");
 		pd.drawGraph(list1, listY, "Y_AXIS");
@@ -292,20 +319,21 @@ public class ConnectionManager {
 		pd.drawGraph(list1, sleep, "Sleep_graph");
 	}
 
-	public double meanOfFiveEpochs(ArrayList<Double> list) {
+	public double meanOfEpochs(ArrayList<Double> list) {
 		double sum = 0.0;
 		int len = list.size();
 		for (int i = 0; i < len; i++)
 			sum += list.get(i);
 		return (sum / list.size());
 	}
+
 	double threshold = 0.2;
+
 	public int calculateNAT(ArrayList<Double> list) {
 		int count = 0;
-		
-		for (int i = 0; i < list.size(); i++)
-		{
-			if(list.get(i)>=threshold)
+
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) >= threshold)
 				count++;
 		}
 		return count;
@@ -313,35 +341,21 @@ public class ConnectionManager {
 
 	public double findSDofLastSixMins(ArrayList<Double> list) {
 		double sd = 0.0;
-		int[] arr = new int[6];
-		//double threshold = 3.0;
-		
-		for (int i = 0; i <6; i++)
-		{
-			if(list.get(i)>=threshold)
-				arr[i]=1;
-			else
-				arr[i]=0;
-		}
-		
 		int sum = 0;
-		for(int i =0; i<arr.length;i++)
-			sum+=arr[i];
-		
-		double mean = sum/arr.length;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) >= threshold)
+				sum++;
+		}
+		double mean = sum / list.size();
 		double sumForSD = 0.0;
 		for (int i = 0; i < list.size(); i++)
-		sumForSD+=Math.sqrt(list.get(i)-mean);
-		sd = Math.sqrt(sumForSD/arr.length);
+			sumForSD += Math.sqrt(list.get(i) - mean);
+		sd = Math.sqrt(sumForSD / list.size());
 		return sd;
 	}
 
 	public double LogOfNATValue(double value) {
-		//double threshold = 3.0;
-		if(value>=threshold)
-			return Math.log(2);
-		else
-			return 0.0;					
+			return Math.log(value);
 	}
 
 	public void insertAggregatedDataInMongoDB(DBCollection collection,

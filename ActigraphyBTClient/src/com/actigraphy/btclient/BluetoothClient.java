@@ -55,7 +55,9 @@ public class BluetoothClient {
 
 	}
 
-	public BluetoothClient(List<Double> x, List<Double> y, List<Double> z) {
+	public BluetoothClient(List<Double> x, List<Double> y, List<Double> z) 
+	{
+		System.out.println(".............Inside Bluetooth Client..................");
 		list = x;
 		if(x.size()!=0)
 		{
@@ -74,10 +76,8 @@ public class BluetoothClient {
 			bufferBluetoothClient[lengthOfData + j] = byteArray[j];
 
 		}
-
 		lengthOfData = lengthOfData + byteArray.length;
 		System.out.println("lengthOfData  " + lengthOfData);
-
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) 
 		{

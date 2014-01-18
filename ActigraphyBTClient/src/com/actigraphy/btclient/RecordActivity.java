@@ -23,14 +23,15 @@ import android.widget.TextView;
 import com.actigraphy.btclient.R;
 
 
-public class RecordActivity extends Activity implements SensorEventListener {
+public class RecordActivity extends Activity implements SensorEventListener 
+{
 	Button start, stop;
 	double sum = 0.0;
 	List<Double> sumValue = new ArrayList<Double>();
 	List<Double> xAxis = new ArrayList<Double>();
 	List<Double> yAxis = new ArrayList<Double>();
 	List<Double> zAxis = new ArrayList<Double>();
-	//TextView timerVal;
+	TextView timerVal;
 	int time = 0;
 	private double mLastX, mLastY, mLastZ;
 	private boolean mInitialized;
@@ -39,13 +40,15 @@ public class RecordActivity extends Activity implements SensorEventListener {
 	private final float NOISE = (float) 2.0;
 	long startTime = 0;
 
-	private void addValue() throws IOException {
-		System.out.println("adding data to list");
+	private void addValue() throws IOException 
+	{
 		// sumValue.add(sum);
 		xAxis.add(mLastX);
 		yAxis.add(mLastY);
 		zAxis.add(mLastZ);
-		if (xAxis.size() % 10 == 0) {
+		System.out.println("adding data to list condition value="+xAxis.size() % 10);
+		if (xAxis.size() % 10 == 0) 
+		{
 			System.out.println("Sending data to server...");
 			sendData();
 			xAxis.clear();
@@ -56,17 +59,19 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 	// runs without a timer by reposting this handler at the end of the runnable
 	Handler timerHandler = new Handler();
-	Runnable timerRunnable = new Runnable() {
+	Runnable timerRunnable = new Runnable() 
+	{
 
 		@Override
-		public void run() {
-
+		public void run() 
+		{
+			System.out.println("-------Inside run method of Timer Runnable-----");
 			long millis = System.currentTimeMillis() - startTime;
 			int seconds = (int) (millis / 1000);
 			int minutes = seconds / 60;
 			seconds = seconds % 60;
 			// time = seconds + minutes * 60;
-			//timerVal.setText(String.format("%d:%02d", minutes, seconds));
+			timerVal.setText("Time elapsed: "+String.format("%d:%02d", minutes, seconds));
 			try {
 				addValue();
 			} catch (IOException e) {
@@ -79,7 +84,8 @@ public class RecordActivity extends Activity implements SensorEventListener {
 	};
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mInitialized = false;
@@ -87,7 +93,8 @@ public class RecordActivity extends Activity implements SensorEventListener {
 		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		start = (Button) findViewById(R.id.start);
 		stop = (Button) findViewById(R.id.stop);
-		start.setOnClickListener(new OnClickListener() {
+		start.setOnClickListener(new OnClickListener() 
+		{
 
 			@Override
 			public void onClick(View arg0) {
@@ -96,12 +103,14 @@ public class RecordActivity extends Activity implements SensorEventListener {
 			}
 
 		});
-		stop.setOnClickListener(new OnClickListener() {
+		stop.setOnClickListener(new OnClickListener() 
+		{
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("stop pressed");
+				timerVal.setText("Stopped Session");
 				stopProgram();
 				//finish();
 				//System.exit(0);
@@ -115,32 +124,38 @@ public class RecordActivity extends Activity implements SensorEventListener {
 		xAxis.clear();
 		yAxis.clear();
 		zAxis.clear();
+		onPause();
+		startTime =0;
 		BluetoothClient stop = new BluetoothClient(xAxis, yAxis, zAxis);
+		timerHandler.removeCallbacks(timerRunnable);
 		System.out.println("sending stop trigger to server");
 	}
 
-	public void startProgram() {
+	public void startProgram() 
+	{
+		System.out.println("sending data to server");
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_NORMAL);
 		// Declare the timer
-		//timerVal = (TextView) findViewById(R.id.timer);
+		timerVal = (TextView) findViewById(R.id.timer);
 		startTime = System.currentTimeMillis();
 		timerHandler.postDelayed(timerRunnable, 0);
 	}
 
-	protected void onResume() {
+	protected void onResume() 
+	{
 
 		super.onResume();
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_NORMAL);
-
+		
 	}
 
-	protected void onPause() {
+	protected void onPause() 
+	{
 		super.onPause();
+		System.out.println("------------Inside pause of client activity------");
 		mSensorManager.unregisterListener(this);
-		// timerHandler.removeCallbacks(timerRunnable);
-
 	}
 
 	@Override
@@ -149,7 +164,8 @@ public class RecordActivity extends Activity implements SensorEventListener {
 
 	}
 
-	void sendData() {
+	void sendData() 
+	{
 		BluetoothClient bClient = new BluetoothClient(xAxis, yAxis, zAxis);
 	}
 
